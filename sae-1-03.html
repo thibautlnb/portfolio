@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet 1.3 — Thibaut Lenoble</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .sae-page-header {
+            background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 5.5rem 5% 3rem;
+        }
+        .sae-page-header-inner { max-width: 900px; margin: auto; }
+        .sae-page-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            color: var(--white);
+            margin: 1rem 0 0.5rem;
+        }
+        main { max-width: 900px; margin: 0 auto; padding: 3rem 5% 5rem; position: relative; z-index: 1; }
+        .content-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem 2.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+        .content-block:hover { border-color: rgba(0,200,248,0.15); }
+        .content-block h2 {
+            font-size: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .content-block h2::after { display: none; }
+        .content-block h2 .block-num {
+            width: 24px; height: 24px;
+            background: var(--cyan-dim);
+            border: 1px solid var(--tag-border);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; flex-shrink: 0;
+        }
+        .content-block p, .content-block li { font-size: 0.9rem; color: var(--text); line-height: 1.8; }
+        .ac-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+        .ac-list li {
+            background: rgba(0,200,248,0.05);
+            border: 1px solid var(--tag-border);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            font-size: 0.88rem;
+        }
+        .ac-list li strong { color: var(--cyan); }
+        .reflexion-block {
+            background: linear-gradient(135deg, rgba(0,200,248,0.05), rgba(0,200,248,0.02));
+            border: 1px solid rgba(0,200,248,0.15);
+        }
+        .reflexion-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+        .reflexion-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .reflexion-item .r-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--cyan);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .reflexion-item p { color: var(--text); font-size: 0.9rem; }
+
+        /* === PROOF SECTIONS === */
+        .proof-section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--cyan);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin: 1.8rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .proof-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Grille de preuves */
+        .proof-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 1rem 0 1.5rem;
+        }
+        .proof-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .proof-grid.cols-1 { grid-template-columns: 1fr; }
+
+        .proof-figure {
+            margin: 0;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .proof-figure:hover {
+            border-color: rgba(0,200,248,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,200,248,0.1);
+        }
+        .proof-figure img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: top;
+            background: #0a1220;
+            display: block;
+        }
+        .proof-figure.tall img { height: 280px; }
+        .proof-figure figcaption {
+            padding: 0.65rem 1rem;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            border-top: 1px solid var(--border);
+            line-height: 1.4;
+        }
+        .proof-figure figcaption strong { color: var(--cyan); display: block; margin-bottom: 0.2rem; }
+
+        /* Bloc calcul */
+        .calc-block {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,200,248,0.15);
+            border-radius: var(--radius-sm);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+        .calc-block .calc-line { color: var(--text-dim); margin: 0.25rem 0; }
+        .calc-block .calc-result { color: var(--cyan); font-size: 1rem; font-weight: 600; margin-top: 0.6rem; }
+
+        /* Résultat badge */
+        .result-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0,200,248,0.1);
+            border: 1px solid rgba(0,200,248,0.35);
+            border-radius: var(--radius-sm);
+            padding: 0.5rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            color: var(--cyan);
+            margin: 0.8rem 0.4rem 0 0;
+        }
+        .result-badge .val { font-size: 1.1rem; font-weight: 700; }
+
+        /* Lightbox */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            cursor: zoom-out;
+        }
+        #lightbox.open { display: flex; }
+        #lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(0,200,248,0.2);
+        }
+        #lightbox-close {
+            position: fixed;
+            top: 1.2rem;
+            right: 1.5rem;
+            color: var(--text-dim);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        #lightbox-close:hover { color: var(--cyan); }
+
+        @media (max-width: 600px) {
+            .proof-grid { grid-template-columns: 1fr; }
+            .proof-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="index.html" class="logo">Thibaut<span>.</span></a>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="projets.html">Projets</a>
+            <a href="bilan.html">Bilan</a>
+        </div>
+    </nav>
+</header>
+
+<div class="sae-page-header">
+    <div class="sae-page-header-inner">
+        <a href="projets.html" class="back-btn fade-up">← Retour aux projets</a>
+        <div class="tags fade-up delay-1" style="margin-top:1rem;">
+            <span class="tag">Semestre 1</span>
+            <span class="tag">Télécoms</span>
+            <span class="tag">Fibre &amp; Cuivre</span>
+        </div>
+        <h1 class="fade-up delay-2">Projet 1.3 — Découvrir un dispositif de transmission</h1>
+    </div>
+</div>
+
+<main>
+    <!-- BLOC 1 : Description -->
+    <div class="content-block reveal">
+        <h2><span class="block-num">1</span>Description &amp; Objectif</h2>
+        <p>Introduction pratique aux supports physiques de transmission (câbles en cuivre et fibre optique). L'objectif était de comprendre et reproduire des mesures de certification à l'aide d'équipements professionnels (analyseur de spectre, oscilloscope, photomètre) pour en déduire leurs caractéristiques physiques.</p>
+    </div>
+
+    <!-- BLOC 2 : AC -->
+    <div class="content-block reveal delay-1">
+        <h2><span class="block-num">2</span>Apprentissages Critiques</h2>
+        <ul class="ac-list">
+            <li><strong>AC1 :</strong> Mesurer et analyser les signaux.</li>
+            <li><strong>AC2 :</strong> Déployer des supports de transmission.</li>
+            <li><strong>AC3 :</strong> Communiquer avec un tiers et adapter son discours.</li>
+        </ul>
+    </div>
+
+    <!-- BLOC 3 : Preuves -->
+    <div class="content-block reveal delay-2">
+        <h2><span class="block-num">3</span>Tâches réalisées &amp; Preuves</h2>
+        <p>Deux rapports de mesure ont été rédigés à l'issue de ce projet : l'un portant sur la réflectométrie DTF sur câble coaxial RG58 et câble Ethernet, l'autre sur un bilan optique par photométrie à 1550 nm sur une liaison FTTH.</p>
+
+        <!-- === PARTIE A : DTF === -->
+        <div class="proof-section-title">Rapport A — Réflectométrie &amp; DTF (câble coaxial RG58)</div>
+        <p style="font-size:0.88rem; color:var(--text-dim); margin-bottom:1rem;">Réalisé avec l'analyseur de spectre SIGLENT SVA1000X. L'objectif était de localiser la fin du câble (Peak Distance) et de valider la mesure par calcul avec l'oscilloscope.</p>
+
+        <div class="proof-grid">
+            <figure class="proof-figure tall" onclick="openLightbox('dtf-1.jpeg')">
+                <img src="dtf-1.jpeg" alt="Rapport DTF — page 1 : introduction et câble de référence (SIGLENT)">
+                <figcaption>
+                    <strong>// Câble de référence — SIGLENT SVA1000X</strong>
+                    DTF : Peak Distance = 0.05 m · Peak Value = −4.15 dB · NVP = 0.66
+                </figcaption>
+            </figure>
+            <figure class="proof-figure tall" onclick="openLightbox('dtf-2.jpeg')">
+                <img src="dtf-2.jpeg" alt="Rapport DTF — page 2 : câble RG58 3 m + câble Ethernet 5 m">
+                <figcaption>
+                    <strong>// RG58 (3 m) + Ethernet (5 m)</strong>
+                    RG58 : Peak Distance = 3.07 m · Ethernet : Peak Distance = 0.06 m (5 m)
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="proof-grid cols-1">
+            <figure class="proof-figure" onclick="openLightbox('dtf-3.jpeg')">
+                <img src="dtf-3.jpeg" alt="Oscilloscope SIGLENT — mesure ΔX = 14.80 ns et calcul de longueur">
+                <figcaption>
+                    <strong>// Oscilloscope SIGLENT — mesure du temps de propagation</strong>
+                    ΔX = 14.80 ns mesuré entre signal émis (CH2) et réfléchi (CH1)
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="calc-block">
+            <div class="calc-line">tp = 14.80 ns &nbsp;&nbsp; (écart temporel mesuré à l'oscilloscope)</div>
+            <div class="calc-line">v = c × NVP = 3×10⁸ × 0.66</div>
+            <div class="calc-line">L = v × tp = 3×10⁸ × 0.66 × 14.80×10⁻⁹</div>
+            <div class="calc-result">→ L = 2.93 m &nbsp; ✓ (câble annoncé à 3 m)</div>
+        </div>
+
+        <div>
+            <span class="result-badge"><span class="val">3.07 m</span> &nbsp;DTF RG58</span>
+            <span class="result-badge"><span class="val">2.93 m</span> &nbsp;Oscilloscope</span>
+            <span class="result-badge"><span class="val">NVP 0.66</span> &nbsp;facteur vitesse</span>
+        </div>
+
+        <!-- === PARTIE B : Photométrie === -->
+        <div class="proof-section-title" style="margin-top:2.5rem;">Rapport B — Bilan optique par photométrie (FTTH, liaison L6)</div>
+        <p style="font-size:0.88rem; color:var(--text-dim); margin-bottom:1rem;">Réalisé avec un photomètre VIAVI OLP-35 et une source laser à 1550 nm. Câblage de la liaison L6 sur le panneau de brassage (ports 20→16→15→14→2→3).</p>
+
+        <div class="proof-grid cols-3">
+            <figure class="proof-figure" onclick="openLightbox('photo-1.jpeg')">
+                <img src="photo-1.jpeg" alt="Vue du panneau de brassage fibre — liaison L6">
+                <figcaption>
+                    <strong>// Panneau de brassage fibre</strong>
+                    Câblage de la liaison L6 avec connecteurs SC/APC
+                </figcaption>
+            </figure>
+            <figure class="proof-figure" onclick="openLightbox('photo-2.jpeg')">
+                <img src="photo-2.jpeg" alt="Schéma de câblage de la liaison L6">
+                <figcaption>
+                    <strong>// Câblage liaison L6</strong>
+                    Photomètre → Port 20 · 16→15 · 14→2 · Port 3 → Photomètre
+                </figcaption>
+            </figure>
+            <figure class="proof-figure" onclick="openLightbox('photo-3.jpeg')">
+                <img src="photo-3.jpeg" alt="Source laser réglée à 1550 nm">
+                <figcaption>
+                    <strong>// Source laser — 1550 nm</strong>
+                    Longueur d'onde de travail FTTH standard
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="proof-grid">
+            <figure class="proof-figure tall" onclick="openLightbox('photo-4.jpeg')">
+                <img src="photo-4.jpeg" alt="Photomètre VIAVI OLP-35 affichant 8.80 dB — conclusion du rapport">
+                <figcaption>
+                    <strong>// VIAVI OLP-35 — Résultat final</strong>
+                    Atténuation mesurée : 8.80 dB · Réf : −5.54 dBm · λ = 1550 nm
+                </figcaption>
+            </figure>
+            <figure class="proof-figure tall" onclick="openLightbox('photo-5.jpeg')">
+                <img src="photo-5.jpeg" alt="Bilan et conclusion du rapport photométrie">
+                <figcaption>
+                    <strong>// Conclusion du rapport de mesure</strong>
+                    Bilan : 8.80 dB = atténuation totale de l'installation FTTH liaison L6
+                </figcaption>
+            </figure>
+        </div>
+
+        <div>
+            <span class="result-badge"><span class="val">8.80 dB</span> &nbsp;atténuation totale</span>
+            <span class="result-badge"><span class="val">1550 nm</span> &nbsp;longueur d'onde</span>
+            <span class="result-badge"><span class="val">L6</span> &nbsp;liaison caractérisée</span>
+        </div>
+    </div>
+
+    <!-- BLOC 4 : Réflexion -->
+    <div class="content-block reflexion-block reveal delay-3">
+        <h2><span class="block-num">4</span>Autoévaluation &amp; Réflexion</h2>
+        <div class="reflexion-item">
+            <span class="r-label">Ce que j'ai appris</span>
+            <p>J'ai appris à utiliser des appareils de mesure professionnels. Sur le cuivre, j'ai compris la détection de défaut par réflectométrie (DTF) et le calcul de la NVP. Côté fibre, j'ai découvert le déploiement FTTH et les règles d'hygiène optique (nettoyage des connecteurs) avant mesure au photomètre.</p>
+        </div>
+
+        <div class="diff-table-wrap">
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th><span class="th-icon">⚠</span>Difficultés rencontrées</th>
+                        <th><span class="th-icon">✓</span>Solutions apportées</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="row-num">#01</span>
+                            Manipuler les curseurs de l'oscilloscope avec assez de précision pour lire l'écart temporel (ΔX = 14.80 ns) entre signal émis et réfléchi.
+                        </td>
+                        <td>
+                            <span class="row-num">#01</span>
+                            Application rigoureuse de la formule <code>L = c × NVP × tp</code>, permettant de déduire une longueur de 2.93 m à partir des relevés d'écran, très proche des 3 m réels.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="row-num">#02</span>
+                            Côté fibre, la moindre impureté sur un connecteur faussait intégralement le bilan optique et rajoutait des pertes en dB incontrôlées.
+                        </td>
+                        <td>
+                            <span class="row-num">#02</span>
+                            Protocole strict de nettoyage au stylo optique sur chaque connecteur SC/APC et étalonnage du photomètre VIAVI OLP-35 à 1550 nm (mise à zéro de la référence), permettant une mesure précise de 8.80 dB.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Thibaut Lenoble © 2025 — Portfolio BUT R&amp;T | IUT Grand Ouest Normandie, Caen</p>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+    <span id="lightbox-close" onclick="closeLightbox()">✕</span>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function openLightbox(src) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>

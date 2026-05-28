@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet 1.4 — Thibaut Lenoble</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .sae-page-header {
+            background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 5.5rem 5% 3rem;
+        }
+        .sae-page-header-inner { max-width: 900px; margin: auto; }
+        .sae-page-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            color: var(--white);
+            margin: 1rem 0 0.5rem;
+        }
+        main { max-width: 900px; margin: 0 auto; padding: 3rem 5% 5rem; position: relative; z-index: 1; }
+        .content-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem 2.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+        .content-block:hover { border-color: rgba(0,200,248,0.15); }
+        .content-block h2 {
+            font-size: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .content-block h2::after { display: none; }
+        .content-block h2 .block-num {
+            width: 24px; height: 24px;
+            background: var(--cyan-dim);
+            border: 1px solid var(--tag-border);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; flex-shrink: 0;
+        }
+        .content-block p, .content-block li { font-size: 0.9rem; color: var(--text); line-height: 1.8; }
+        .ac-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+        .ac-list li {
+            background: rgba(0,200,248,0.05);
+            border: 1px solid var(--tag-border);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            font-size: 0.88rem;
+        }
+        .ac-list li strong { color: var(--cyan); }
+        .reflexion-block {
+            background: linear-gradient(135deg, rgba(0,200,248,0.05), rgba(0,200,248,0.02));
+            border: 1px solid rgba(0,200,248,0.15);
+        }
+        .reflexion-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+        .reflexion-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .reflexion-item .r-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--cyan);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .reflexion-item p { color: var(--text); font-size: 0.9rem; }
+
+        /* === SECTION TITLE === */
+        .proof-section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--cyan);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin: 1.8rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .proof-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* === SITE ARCHITECTURE === */
+        .site-map {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.7rem;
+            margin: 1.2rem 0;
+        }
+        .page-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.9rem 0.7rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: default;
+        }
+        .page-card:hover { border-color: rgba(0,200,248,0.3); transform: translateY(-2px); }
+        .page-card .page-icon { font-size: 1.3rem; margin-bottom: 0.4rem; }
+        .page-card .page-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--cyan);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .page-card .page-color {
+            width: 24px;
+            height: 4px;
+            border-radius: 2px;
+            margin: 0.4rem auto 0;
+        }
+        .page-card p { font-size: 0.75rem; color: var(--text-dim); margin: 0; line-height: 1.4; }
+
+        /* === TECH FEATURES === */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .feature-card {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.2rem;
+            transition: var(--transition);
+        }
+        .feature-card:hover { border-color: rgba(0,200,248,0.2); }
+        .feature-card .f-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--white);
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .feature-card .f-badge {
+            font-size: 0.65rem;
+            background: var(--cyan-dim);
+            color: var(--cyan);
+            border: 1px solid var(--tag-border);
+            padding: 0.1em 0.5em;
+            border-radius: 4px;
+        }
+        .feature-card p { font-size: 0.82rem; color: var(--text-dim); margin: 0; line-height: 1.6; }
+
+        /* === CODE SNIPPET === */
+        .code-block {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,200,248,0.15);
+            border-radius: var(--radius-sm);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+        }
+        .code-block .c-comment { color: var(--text-dim); }
+        .code-block .c-selector { color: #f9c74f; }
+        .code-block .c-prop { color: var(--cyan); }
+        .code-block .c-val { color: #90e0a0; }
+        .code-block .c-label { color: #e07060; }
+
+        /* === RETROPLANNING === */
+        .timeline {
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .tl-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            position: relative;
+        }
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: 72px;
+            top: 24px;
+            bottom: -4px;
+            width: 1px;
+            background: var(--border);
+        }
+        .tl-item:last-child::before { display: none; }
+        .tl-date {
+            width: 65px;
+            flex-shrink: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            text-align: right;
+            padding-top: 0.15rem;
+            line-height: 1.4;
+        }
+        .tl-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            border: 2px solid;
+            position: relative;
+            z-index: 1;
+        }
+        .tl-content {
+            flex: 1;
+            padding-bottom: 1.2rem;
+        }
+        .tl-content .tl-phase {
+            font-size: 0.82rem;
+            color: var(--white);
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .tl-content .tl-detail {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            margin-top: 0.2rem;
+        }
+
+        /* === LINKS === */
+        .link-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.2rem 0;
+        }
+        .btn-proof {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--cyan-dim);
+            color: var(--cyan);
+            border: 1px solid var(--tag-border);
+            padding: 0.7rem 1.3rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: var(--transition);
+        }
+        .btn-proof:hover {
+            background: rgba(0,200,248,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--cyan-glow);
+        }
+
+        /* === STATS === */
+        .stat-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .stat-badge {
+            background: rgba(0,200,248,0.08);
+            border: 1px solid rgba(0,200,248,0.25);
+            border-radius: var(--radius-sm);
+            padding: 0.6rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stat-badge span { color: var(--cyan); font-weight: 700; font-size: 1rem; }
+
+        @media (max-width: 600px) {
+            .site-map { grid-template-columns: repeat(3, 1fr); }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="index.html" class="logo">Thibaut<span>.</span></a>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="projets.html">Projets</a>
+            <a href="bilan.html">Bilan</a>
+        </div>
+    </nav>
+</header>
+
+<div class="sae-page-header">
+    <div class="sae-page-header-inner">
+        <a href="projets.html" class="back-btn fade-up">← Retour aux projets</a>
+        <div class="tags fade-up delay-1" style="margin-top:1rem;">
+            <span class="tag">Semestre 1</span>
+            <span class="tag">Développement Web</span>
+            <span class="tag">HTML / CSS</span>
+        </div>
+        <h1 class="fade-up delay-2">Projet 1.4 — Se présenter sur Internet</h1>
+    </div>
+</div>
+
+<main>
+
+    <!-- BLOC 1 : Description -->
+    <div class="content-block reveal">
+        <h2><span class="block-num">1</span>Description &amp; Objectif</h2>
+        <p>Création complète d'un site internet personnel multi-pages, dynamique et responsive, sur le thème de la musculation. L'objectif était de maîtriser les bases du développement front-end (HTML sémantique, CSS Flexbox, responsive design, animations CSS) et de livrer un site fonctionnel hébergé sur GitHub Pages.</p>
+        <div class="link-row" style="margin-top:1.2rem;">
+            <a href="https://thibautlnb.github.io/site-internet/" target="_blank" class="btn-proof">🌐 Voir le site en ligne</a>
+            <a href="https://trello.com/invite/b/691d7c80ca57a87b2fa450c5/ATTI16b10f0cb551ac8abd35878cebd687af9B1FCF6D/sae14" target="_blank" class="btn-proof">📋 Tableau Trello</a>
+        </div>
+    </div>
+
+    <!-- BLOC 2 : AC -->
+    <div class="content-block reveal delay-1">
+        <h2><span class="block-num">2</span>Apprentissages Critiques</h2>
+        <ul class="ac-list">
+            <li><strong>AC13.01 :</strong> Identifier les différents composants d'un système numérique.</li>
+            <li><strong>AC13.04 :</strong> Connaître l'architecture et les technologies d'un site Web.</li>
+            <li><strong>AC13.06 :</strong> S'intégrer dans un environnement propice au développement (Git, GitHub Pages).</li>
+        </ul>
+    </div>
+
+    <!-- BLOC 3 : Tâches & Preuves -->
+    <div class="content-block reveal delay-2">
+        <h2><span class="block-num">3</span>Tâches réalisées &amp; Preuves</h2>
+        <p>Conception, développement et déploiement d'un site internet 5 pages sur la thématique de la musculation, avec une charte graphique distincte par section, un design responsive et un carrousel CSS sans JavaScript.</p>
+
+        <!-- Architecture du site -->
+        <div class="proof-section-title">Architecture du site — 5 pages</div>
+        <div class="site-map">
+            <div class="page-card">
+                <div class="page-icon">🏠</div>
+                <span class="page-name">index.html</span>
+                <p>Accueil — hub de navigation</p>
+                <div class="page-color" style="background:#940b0b;"></div>
+            </div>
+            <div class="page-card">
+                <div class="page-icon">🏋️</div>
+                <span class="page-name">pratique.html</span>
+                <p>BB, Powerlifting, SW, CrossFit</p>
+                <div class="page-color" style="background:#0917d1;"></div>
+            </div>
+            <div class="page-card">
+                <div class="page-icon">🔩</div>
+                <span class="page-name">materiel.html</span>
+                <p>Haltères, barres, machines…</p>
+                <div class="page-color" style="background:#9c0a90;"></div>
+            </div>
+            <div class="page-card">
+                <div class="page-icon">🥗</div>
+                <span class="page-name">nutrition.html</span>
+                <p>Macros, prise masse, sèche</p>
+                <div class="page-color" style="background:#265402;"></div>
+            </div>
+            <div class="page-card">
+                <div class="page-icon">👤</div>
+                <span class="page-name">Apropos.html</span>
+                <p>Profil, programme PPL, PR</p>
+                <div class="page-color" style="background:#af7407;"></div>
+            </div>
+        </div>
+
+        <!-- Fonctionnalités techniques -->
+        <div class="proof-section-title">Fonctionnalités techniques implémentées</div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="f-title">Responsive Design <span class="f-badge">CSS Media Queries</span></div>
+                <p>Adaptation du layout pour mobile, tablette et desktop via <code style="color:var(--cyan); font-size:0.8em;">@media (max-width: 768px)</code>. Navigation en colonne sur mobile, images redimensionnées.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-title">Carrousel CSS pur <span class="f-badge">Sans JavaScript</span></div>
+                <p>Slider Push/Pull/Legs implémenté uniquement avec des <code style="color:var(--cyan); font-size:0.8em;">input[type=radio]</code> et des sélecteurs CSS adjacents. Flèches de navigation et points actifs inclus.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-title">Animations au survol <span class="f-badge">CSS Transitions</span></div>
+                <p>Animation <code style="color:var(--cyan); font-size:0.8em;">scale(1.1)</code> sur les images d'accueil, effet "blob" radial sur les boutons de navigation par <code style="color:var(--cyan); font-size:0.8em;">transform: scale3d()</code>.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-title">Charte graphique multi-page <span class="f-badge">CSS Variables</span></div>
+                <p>Chaque page possède sa propre couleur d'accent (rouge, bleu, violet, vert, orange) via <code style="color:var(--cyan); font-size:0.8em;">linear-gradient</code> en fond et CSS dédié par fichier.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-title">Mise en page Flexbox <span class="f-badge">CSS Layout</span></div>
+                <p>Structure entière basée sur <code style="color:var(--cyan); font-size:0.8em;">display: flex</code> pour l'en-tête, les sections de contenu, et les grilles d'articles. Aucun framework CSS utilisé.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-title">Hébergement GitHub Pages <span class="f-badge">Déploiement</span></div>
+                <p>Dépôt Git public, déploiement automatique sur <code style="color:var(--cyan); font-size:0.8em;">thibautlnb.github.io/site-internet/</code>. Gestion des commits avec messages porteurs de sens.</p>
+            </div>
+        </div>
+
+        <!-- Extrait code clé : carrousel CSS -->
+        <div class="proof-section-title">Extrait de code — Carrousel CSS (mécanisme clé)</div>
+        <div class="code-block">
+<span class="c-comment">/* Sélecteur CSS : quand slide2 est coché, décaler le track */</span><br>
+<span class="c-selector">#slide2:checked ~ .slides-inner .inner-track</span> {<br>
+&nbsp;&nbsp;<span class="c-prop">transform</span>: <span class="c-val">translateX(-33.33%)</span>;<br>
+}<br><br>
+<span class="c-comment">/* Flèche visible uniquement pour la slide active */</span><br>
+<span class="c-selector">#slide2:checked ~ .carousel-arrows .arrows-for-2</span> {<br>
+&nbsp;&nbsp;<span class="c-prop">display</span>: <span class="c-val">block</span>;<br>
+}<br><br>
+<span class="c-comment">/* Point actif correspondant */</span><br>
+<span class="c-selector">#slide2:checked ~ .carousel-dots label:nth-child(2)</span> {<br>
+&nbsp;&nbsp;<span class="c-prop">background</span>: <span class="c-val">rgb(175, 116, 7)</span>;<br>
+}
+        </div>
+
+        <!-- Rétroplanification -->
+        <div class="proof-section-title">Rétroplanification du projet</div>
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="tl-date">5–9 nov.</div>
+                <div class="tl-dot" style="border-color:#6a7f99; background:#6a7f9933;"></div>
+                <div class="tl-content">
+                    <div class="tl-phase">Phase de conception et préparation</div>
+                    <div class="tl-detail">Choix du thème, charte graphique, création du dépôt GitHub, configuration Pages, README initial.</div>
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">10–21 nov.</div>
+                <div class="tl-dot" style="border-color:var(--cyan); background:var(--cyan-dim);"></div>
+                <div class="tl-content">
+                    <div class="tl-phase">Structure HTML</div>
+                    <div class="tl-detail">Création des 5 pages (index, pratique, materiel, nutrition, Apropos), HTML sémantique, navigation commune.</div>
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">22 nov.–3 déc.</div>
+                <div class="tl-dot" style="border-color:#9c0a90; background:rgba(156,10,144,0.15);"></div>
+                <div class="tl-content">
+                    <div class="tl-phase">Style et mise en page CSS</div>
+                    <div class="tl-detail">Intégration de la charte graphique, mise en page Flexbox, feuilles CSS distinctes par page.</div>
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">4–7 déc.</div>
+                <div class="tl-dot" style="border-color:#0917d1; background:rgba(9,23,209,0.15);"></div>
+                <div class="tl-content">
+                    <div class="tl-phase">Responsive Web Design</div>
+                    <div class="tl-detail">Media queries pour mobile et tablette, adaptation des layouts flex en colonne, images redimensionnées.</div>
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">8–13 déc.</div>
+                <div class="tl-dot" style="border-color:#af7407; background:rgba(175,116,7,0.15);"></div>
+                <div class="tl-content">
+                    <div class="tl-phase">Animations CSS</div>
+                    <div class="tl-detail">Carrousel CSS pur (radio inputs), effets hover sur images et boutons, transitions de navigation.</div>
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">14–17 déc.</div>
+                <div class="tl-dot" style="border-color:#70c8a0; background:rgba(112,200,160,0.15);"></div>
+                <div class="tl-content">
+                    <div class="tl-phase">Validation technique</div>
+                    <div class="tl-detail">Validation W3C HTML &amp; CSS, vérification accessibilité WCAG 2.0 AA, tests multi-navigateurs.</div>
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">18–19 déc.</div>
+                <div class="tl-dot" style="border-color:#e0a070; background:rgba(224,160,112,0.15);"></div>
+                <div class="tl-content">
+                    <div class="tl-phase">Finalisation &amp; dépôt des livrables</div>
+                    <div class="tl-detail">Finalisation README.md, dépôt de l'URL GitHub Pages, soumission du lien Trello.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="proof-section-title">Résumé du projet</div>
+        <div class="stat-row">
+            <div class="stat-badge"><span>5</span> pages HTML</div>
+            <div class="stat-badge"><span>5</span> fichiers CSS</div>
+            <div class="stat-badge"><span>0</span> ligne de JavaScript</div>
+            <div class="stat-badge"><span>1</span> carrousel CSS pur</div>
+            <div class="stat-badge"><span>6</span> semaines de travail</div>
+        </div>
+    </div>
+
+    <!-- BLOC 4 : Réflexion -->
+    <div class="content-block reflexion-block reveal delay-3">
+        <h2><span class="block-num">4</span>Autoévaluation &amp; Réflexion</h2>
+        <div class="reflexion-item">
+            <span class="r-label">Ce que j'ai appris</span>
+            <p>J'ai appris les fondamentaux du HTML sémantique et du CSS : structuration des balises (<code style="color:var(--cyan); font-size:0.85em;">&lt;header&gt;</code>, <code style="color:var(--cyan); font-size:0.85em;">&lt;main&gt;</code>, <code style="color:var(--cyan); font-size:0.85em;">&lt;section&gt;</code>), modèle de boîte, mise en page par Flexbox et positionnement. J'ai compris l'importance du responsive design avec les media queries. J'ai également découvert qu'il est possible de créer des interactions complexes (comme un carrousel) uniquement en CSS, sans JavaScript, grâce aux sélecteurs adjacents sur les <code style="color:var(--cyan); font-size:0.85em;">input[type=radio]</code>. Enfin, j'ai pris en main Git et GitHub Pages pour versionner et héberger mon code.</p>
+        </div>
+
+        <div class="diff-table-wrap">
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th><span class="th-icon">⚠</span>Difficultés rencontrées</th>
+                        <th><span class="th-icon">✓</span>Solutions apportées</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="row-num">#01</span>
+                            Réaliser un carrousel interactif sans JavaScript. Les approches classiques demandent du JS, mais le cahier des charges se limitait à HTML/CSS.
+                        </td>
+                        <td>
+                            <span class="row-num">#01</span>
+                            Utilisation de <code>input[type="radio"]</code> invisibles et de sélecteurs CSS adjacents (<code>:checked ~ .track</code>) pour piloter le <code>translateX</code> de la piste, créant un carrousel entièrement CSS avec flèches et points de navigation.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="row-num">#02</span>
+                            Maintenir une cohérence visuelle entre 5 pages ayant chacune leur propre couleur dominante, tout en partageant la même structure de navigation.
+                        </td>
+                        <td>
+                            <span class="row-num">#02</span>
+                            Attribution d'un fichier CSS dédié à chaque page (style.css, pratique.css, etc.) pour les couleurs spécifiques, tout en dupliquant les règles communes (header, nav, footer, boutons) dans chaque feuille afin de maintenir la cohérence.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Thibaut Lenoble © 2025 — Portfolio BUT R&amp;T | IUT Grand Ouest Normandie, Caen</p>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

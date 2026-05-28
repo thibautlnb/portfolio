@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAÉ 1.2 — Thibaut Lenoble</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .sae-page-header {
+            background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 5.5rem 5% 3rem;
+        }
+
+        .sae-page-header-inner {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .sae-page-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            color: var(--white);
+            margin: 1rem 0 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 5% 5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem 2.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .content-block:hover { border-color: rgba(0,200,248,0.15); }
+
+        .content-block h2 {
+            font-size: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .content-block h2::after { display: none; }
+
+        .content-block h2 .block-num {
+            width: 24px; height: 24px;
+            background: var(--cyan-dim);
+            border: 1px solid var(--tag-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .content-block p, .content-block li {
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .ac-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .ac-list li {
+            background: rgba(0,200,248,0.05);
+            border: 1px solid var(--tag-border);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            font-size: 0.88rem;
+        }
+
+        .ac-list li strong { color: var(--cyan); }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .proof-grid figure {
+            margin: 0;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .proof-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: #0a1220;
+            padding: 0.5rem;
+        }
+
+        .proof-grid figcaption {
+            padding: 0.7rem 1rem;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            border-top: 1px solid var(--border);
+        }
+
+        .reflexion-block {
+            background: linear-gradient(135deg, rgba(0,200,248,0.05), rgba(0,200,248,0.02));
+            border: 1px solid rgba(0,200,248,0.15);
+        }
+
+        .reflexion-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .reflexion-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+        .reflexion-item .r-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--cyan);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .reflexion-item p { color: var(--text); font-size: 0.9rem; }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--cyan-dim);
+            color: var(--cyan);
+            border: 1px solid var(--tag-border);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: var(--transition);
+        }
+
+        .btn-download:hover {
+            background: rgba(0,200,248,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--cyan-glow);
+        }
+
+        @media (max-width: 600px) { .proof-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">Thibaut<span>.</span></a>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="projets.html">Projets</a>
+            <a href="bilan.html">Bilan</a>
+        </div>
+    </nav>
+</header>
+
+<div class="sae-page-header">
+    <div class="sae-page-header-inner">
+        <a href="projets.html" class="back-btn fade-up">← Retour aux projets</a>
+        <div class="tags fade-up delay-1" style="margin-top: 1rem;">
+            <span class="tag">Semestre 1</span>
+            <span class="tag">Réseau Local</span>
+            <span class="tag">Linux</span>
+        </div>
+        <h1 class="fade-up delay-2">SAÉ 1.2 — S'initier aux réseaux informatiques</h1>
+    </div>
+</div>
+
+<main>
+    <div class="content-block reveal">
+        <h2><span class="block-num">1</span>Description &amp; Objectif</h2>
+        <p>Dans le cadre du développement de la société Fibre&amp;Company, l'objectif de cette SAÉ était de faire évoluer un réseau informatique basique vers une architecture paramétrable, sécurisée et évolutive. Il a fallu implémenter des commutateurs et routeurs Cisco, ainsi qu'un serveur virtuel Debian pour assurer les services d'infrastructure.</p>
+    </div>
+
+    <div class="content-block reveal delay-1">
+        <h2><span class="block-num">2</span>Apprentissages Critiques</h2>
+        <ul class="ac-list">
+            <li><strong>AC 1 :</strong> Comprendre l'architecture et les fondements des systèmes numériques, les principes du codage de l'information.</li>
+            <li><strong>AC 2 :</strong> Configurer les fonctions de base du réseau local.</li>
+        </ul>
+    </div>
+
+    <div class="content-block reveal delay-2">
+        <h2><span class="block-num">3</span>Tâches réalisées &amp; Preuves</h2>
+        <p>Conception du plan d'adressage IP, configuration des VLANs par service (200 à 250), mise en place du routage inter-VLANs et déploiement des services réseaux (DHCP, DNS, SMB, Apache2) sur un serveur Debian partitionné.</p>
+
+        <div class="proof-grid">
+            <figure>
+                <img src="./SAE12TUFF.png" alt="Schéma logique Packet Tracer">
+                <figcaption>// Schéma logique de l'infrastructure</figcaption>
+            </figure>
+            <figure>
+                <img src="./SAE12physique.png" alt="Schéma matériel physique">
+                <figcaption>// Schéma physique du câblage</figcaption>
+            </figure>
+        </div>
+
+        <a href="./configurations_SAE12.zip" class="btn-download">
+            💾 Télécharger les configurations (.txt/.ios)
+        </a>
+    </div>
+
+    <div class="content-block reflexion-block reveal delay-3">
+        <h2><span class="block-num">4</span>Autoévaluation &amp; Réflexion</h2>
+
+        <div class="reflexion-item">
+            <span class="r-label">Ce que j'ai appris</span>
+            <p>J'ai appris à concevoir un réseau complet de bout en bout : calcul de sous-réseaux pour 150 machines par VLAN, protocoles avancés (RSTP, agrégation de liens), et administration de serveurs Linux en CLI (partitionnement Ext4/XFS, création massive d'utilisateurs, sécurisation SSH selon les recommandations ANSSI).</p>
+        </div>
+
+        <div class="diff-table-wrap">
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th><span class="th-icon">⚠</span>Difficultés rencontrées</th>
+                        <th><span class="th-icon">✓</span>Solutions apportées</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="row-num">#01</span>
+                            Le cahier des charges interdisait formellement les boucles et scripts bash avec <code>useradd</code> pour créer les comptes utilisateurs de l'entreprise.
+                        </td>
+                        <td>
+                            <span class="row-num">#01</span>
+                            Utilisation de la commande <code>newusers</code> associée à <code>pwgen</code> pour générer automatiquement les comptes et mots de passe, sans aucune boucle.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="row-num">#02</span>
+                            Configurer le routage entre le routeur LAN/WAN via un lien en /30 et le switch cœur de réseau demandait une grande rigueur dans la table de routage.
+                        </td>
+                        <td>
+                            <span class="row-num">#02</span>
+                            Tests méthodiques avec Iperf3 mesurant les débits réels TCP et UDP, prouvant l'efficacité de l'agrégation de liens et validant chaque entrée de la table de routage.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Thibaut Lenoble © 2025 — Portfolio BUT R&amp;T | IUT Grand Ouest Normandie, Caen</p>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

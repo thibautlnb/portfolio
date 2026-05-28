@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Thibaut Lenoble | BUT R&T</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* === HERO === */
+        #accueil {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            width: 100%;
+        }
+
+        .hero-text { flex: 1; max-width: 600px; }
+
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--cyan);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 32px;
+            height: 1px;
+            background: var(--cyan);
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.6rem, 5vw, 4rem);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0;
+        }
+
+        .hero-text h1 em {
+            font-style: normal;
+            color: var(--cyan);
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-dim);
+            margin: 1.2rem 0 2rem;
+            max-width: 480px;
+            line-height: 1.8;
+        }
+
+        .hero-image {
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            background: conic-gradient(var(--cyan), transparent, var(--cyan));
+            animation: spin 8s linear infinite;
+            opacity: 0.3;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: var(--bg);
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .hero-image img {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(0,200,248,0.3);
+            position: relative;
+            z-index: 1;
+            display: block;
+        }
+
+        .button-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        /* === PRESENTATION === */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--cyan-dim);
+            border: 1px solid var(--tag-border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .skill-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .skill-card ul { list-style: none; }
+        .skill-card ul li {
+            font-size: 0.88rem;
+            color: var(--text);
+            padding: 0.3rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .skill-card ul li:last-child { border: none; }
+        .skill-card ul li::before {
+            content: '›';
+            color: var(--cyan);
+            font-weight: bold;
+        }
+
+        .skill-card p {
+            font-size: 0.88rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .location-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1rem;
+            font-size: 0.82rem;
+            color: var(--cyan);
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--cyan-dim);
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            border: 1px solid var(--tag-border);
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner { flex-direction: column-reverse; text-align: center; gap: 2.5rem; }
+            .hero-eyebrow { justify-content: center; }
+            .button-group { justify-content: center; }
+            .hero-image img { width: 180px; height: 180px; }
+            .hero-image::before { inset: -8px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">Thibaut<span>.</span></a>
+        <div class="nav-links">
+            <a href="index.html" class="active">Accueil</a>
+            <a href="projets.html">Projets</a>
+            <a href="bilan.html">Bilan</a>
+        </div>
+    </nav>
+</header>
+
+<section id="accueil">
+    <div class="hero-inner">
+        <div class="hero-text">
+            <div class="hero-eyebrow fade-up delay-1">BUT Réseaux &amp; Télécommunications</div>
+            <h1 class="fade-up delay-2">Thibaut<br><em>Lenoble</em></h1>
+            <p class="hero-subtitle fade-up delay-3">
+                Bienvenue sur mon portfolio. Ce site retrace mon évolution, mes apprentissages et les compétences acquises à l'IUT Grand Ouest Normandie — Caen.
+            </p>
+            <div class="button-group fade-up delay-4">
+                <a href="projets.html" class="btn">Voir mes projets SAÉ →</a>
+                <a href="CV_Thibaut_Lenoble.pdf" target="_blank" class="btn btn-ghost">Consulter mon CV</a>
+            </div>
+        </div>
+        <div class="hero-image fade-up delay-3">
+            <img src="./IMG_8220.png" alt="Thibaut Lenoble">
+        </div>
+    </div>
+</section>
+
+<section id="presentation">
+    <h2 class="reveal"><span class="h2-num">01</span> Profil &amp; Compétences</h2>
+    <p class="reveal" style="margin-bottom: 2.5rem; color: var(--text-dim); max-width: 640px;">
+        Passionné par les nouvelles technologies, j'ai rejoint le BUT R&amp;T après un Baccalauréat général (Mathématiques, Physique-Chimie, Maths expertes).
+    </p>
+
+    <div class="skills-grid">
+        <div class="glass-card skill-card reveal delay-1">
+            <div class="skill-card-icon">⚙️</div>
+            <h3>Compétences Techniques</h3>
+            <ul>
+                <li>Configuration Switch/Routeurs (VLANs)</li>
+                <li>Développement Web : HTML / CSS</li>
+                <li>Programmation Python</li>
+                <li>Certifié Hygiène Info. ANSSI</li>
+            </ul>
+        </div>
+
+        <div class="glass-card skill-card reveal delay-2">
+            <div class="skill-card-icon">🤝</div>
+            <h3>Savoir-être</h3>
+            <ul>
+                <li><strong style="color:var(--white)">Autonomie &amp; Rigueur</strong> — paramétrage réseau</li>
+                <li><strong style="color:var(--white)">Esprit d'équipe</strong> — hockey &amp; projets</li>
+                <li><strong style="color:var(--white)">Patience &amp; Créativité</strong> — résolution de problèmes</li>
+            </ul>
+        </div>
+
+        <div class="glass-card skill-card reveal delay-3">
+            <div class="skill-card-icon">🚀</div>
+            <h3>Expérience &amp; Mobilité</h3>
+            <p>Stage en électricité et 5 mois d'expérience en restauration en parallèle du lycée.</p>
+            <div class="location-badge">📍 Calvados / Seine-Maritime</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>Thibaut Lenoble © 2025 — Portfolio BUT R&amp;T | IUT Grand Ouest Normandie, Caen</p>
+    <p style="margin-top:0.4rem;">
+        <a href="mailto:thibautlenoble21@gmail.com">thibautlenoble21@gmail.com</a>
+        &nbsp;·&nbsp; 07 69 53 25 81
+    </p>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

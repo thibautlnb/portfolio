@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets SAÉ — Thibaut Lenoble</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .sae-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sae-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--cyan);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .sae-card:hover {
+            border-color: rgba(0,200,248,0.2);
+            background: rgba(255,255,255,0.06);
+            transform: translateX(4px);
+        }
+
+        .sae-card:hover::before { opacity: 1; }
+
+        .sae-card-body { flex: 1; }
+
+        .sae-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+        }
+
+        .sae-card p {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            max-width: 560px;
+        }
+
+        .sae-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--cyan);
+            margin-bottom: 0.5rem;
+            display: block;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 620px) {
+            .sae-card { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">Thibaut<span>.</span></a>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="projets.html" class="active">Projets</a>
+            <a href="bilan.html">Bilan</a>
+        </div>
+    </nav>
+</header>
+
+<section>
+    <h2 class="fade-up"><span class="h2-num">02</span> Mes SAÉ</h2>
+    <p class="fade-up delay-1" style="color: var(--text-dim); margin-bottom: 3rem; max-width: 600px;">
+        Retrouvez ici l'ensemble des projets réalisés durant mon cursus en BUT R&amp;T.
+    </p>
+
+    <div class="semester-title reveal">Semestre 1</div>
+
+    <div class="sae-card reveal delay-1">
+        <div class="sae-card-body">
+            <span class="sae-num">SAÉ 1.2</span>
+            <h3>S'initier aux réseaux informatiques</h3>
+            <div class="tags"><span class="tag">Réseau Local</span><span class="tag">Adressage IP</span></div>
+            <p>Découverte des bases de l'architecture réseau et premières configurations d'interfaces.</p>
+        </div>
+        <a href="sae-1-02.html" class="btn-outline">Lire l'analyse →</a>
+    </div>
+
+    <div class="sae-card reveal delay-2">
+        <div class="sae-card-body">
+            <span class="sae-num">SAÉ 1.3</span>
+            <h3>Découvrir un dispositif de transmission</h3>
+            <div class="tags"><span class="tag">Télécoms</span><span class="tag">Signaux</span></div>
+            <p>Introduction aux télécommunications par l'étude des signaux physiques et supports de transmission.</p>
+        </div>
+        <a href="sae-1-03.html" class="btn-outline">Lire l'analyse →</a>
+    </div>
+
+    <div class="sae-card reveal delay-3">
+        <div class="sae-card-body">
+            <span class="sae-num">SAÉ 1.4</span>
+            <h3>Se présenter sur Internet</h3>
+            <div class="tags"><span class="tag">Développement Web</span><span class="tag">HTML / CSS</span></div>
+            <p>Création complète d'un site internet dynamique et responsive.</p>
+        </div>
+        <a href="sae-1-04.html" class="btn-outline">Lire l'analyse →</a>
+    </div>
+
+    <div class="sae-card reveal delay-4">
+        <div class="sae-card-body">
+            <span class="sae-num">SAÉ 1.5</span>
+            <h3>Traiter des données</h3>
+            <div class="tags"><span class="tag">Programmation Python</span><span class="tag">Algorithmique</span></div>
+            <p>Initiation à la logique algorithmique et au traitement automatisé via Python.</p>
+        </div>
+        <a href="sae-1-05.html" class="btn-outline">Lire l'analyse →</a>
+    </div>
+
+
+<footer>
+    <p>Thibaut Lenoble © 2025 — Portfolio BUT R&amp;T | IUT Grand Ouest Normandie, Caen</p>
+    <p style="margin-top:0.4rem;">
+        <a href="mailto:thibautlenoble21@gmail.com">thibautlenoble21@gmail.com</a>
+        &nbsp;·&nbsp; 07 69 53 25 81
+    </p>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
