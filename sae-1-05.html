@@ -3,91 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAÉ 1.5 — Thibaut Lenoble</title>
+    <title>Projet 1.5 — Thibaut Lenoble</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .sae-page-header {
-            background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg) 100%);
-            border-bottom: 1px solid var(--border);
-            padding: 5.5rem 5% 3rem;
-        }
+        .sae-page-header { background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border); padding: 5.5rem 5% 3rem; }
         .sae-page-header-inner { max-width: 900px; margin: auto; }
-        .sae-page-header h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            font-weight: 800;
-            color: var(--white);
-            margin: 1rem 0 0.5rem;
-        }
+        .sae-page-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; color: var(--white); margin: 1rem 0 0.5rem; }
         main { max-width: 900px; margin: 0 auto; padding: 3rem 5% 5rem; position: relative; z-index: 1; }
-        .content-block {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2rem 2.5rem;
-            margin-bottom: 1.5rem;
-            transition: var(--transition);
-        }
+        .content-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 2.5rem; margin-bottom: 1.5rem; transition: var(--transition); }
         .content-block:hover { border-color: rgba(0,200,248,0.15); }
-        .content-block h2 {
-            font-size: 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--cyan);
-            font-weight: 600;
-            margin-bottom: 1.2rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
+        .content-block h2 { font-size: 1rem; font-family: 'JetBrains Mono', monospace; color: var(--cyan); font-weight: 600; margin-bottom: 1.2rem; letter-spacing: 0.06em; text-transform: uppercase; display: flex; align-items: center; gap: 0.7rem; }
         .content-block h2::after { display: none; }
-        .content-block h2 .block-num {
-            width: 24px; height: 24px;
-            background: var(--cyan-dim);
-            border: 1px solid var(--tag-border);
-            border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem; flex-shrink: 0;
-        }
+        .content-block h2 .block-num { width: 24px; height: 24px; background: var(--cyan-dim); border: 1px solid var(--tag-border); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
         .content-block p, .content-block li { font-size: 0.9rem; color: var(--text); line-height: 1.8; }
         .ac-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
-        .ac-list li {
-            background: rgba(0,200,248,0.05);
-            border: 1px solid var(--tag-border);
-            border-radius: var(--radius-sm);
-            padding: 0.75rem 1rem;
-            font-size: 0.88rem;
-        }
+        .ac-list li { background: rgba(0,200,248,0.05); border: 1px solid var(--tag-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.88rem; }
         .ac-list li strong { color: var(--cyan); }
-        .proof-area {
-            background: rgba(0,0,0,0.25);
-            border: 1px dashed rgba(0,200,248,0.2);
-            border-radius: var(--radius-sm);
-            padding: 2rem;
-            margin: 1.5rem 0;
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            font-family: 'JetBrains Mono', monospace;
-            text-align: center;
-        }
-        .reflexion-block {
-            background: linear-gradient(135deg, rgba(0,200,248,0.05), rgba(0,200,248,0.02));
-            border: 1px solid rgba(0,200,248,0.15);
-        }
+        .reflexion-block { background: linear-gradient(135deg, rgba(0,200,248,0.05), rgba(0,200,248,0.02)); border: 1px solid rgba(0,200,248,0.15); }
         .reflexion-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
         .reflexion-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-        .reflexion-item .r-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            color: var(--cyan);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
+        .reflexion-item .r-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--cyan); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
         .reflexion-item p { color: var(--text); font-size: 0.9rem; }
-        .reflexion-item em { color: var(--text-dim); font-style: italic; }
+
+        /* Pipeline architecture */
+        .pipeline { display: flex; align-items: center; gap: 0; margin: 1.5rem 0; flex-wrap: wrap; }
+        .pipe-step { background: rgba(0,200,248,0.07); border: 1px solid rgba(0,200,248,0.25); border-radius: var(--radius-sm); padding: 0.9rem 1.2rem; text-align: center; flex: 1; min-width: 120px; }
+        .pipe-step .ps-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+        .pipe-step .ps-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--cyan); font-weight: 600; display: block; letter-spacing: 0.06em; text-transform: uppercase; }
+        .pipe-step .ps-sub { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.2rem; }
+        .pipe-arrow { color: var(--cyan); font-size: 1.2rem; padding: 0 0.5rem; flex-shrink: 0; }
+
+        /* Script cards */
+        .proof-section-title { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--cyan); letter-spacing: 0.12em; text-transform: uppercase; margin: 1.8rem 0 1rem; display: flex; align-items: center; gap: 0.7rem; }
+        .proof-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        .script-card { background: rgba(0,0,0,0.35); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 1.2rem; overflow: hidden; transition: var(--transition); }
+        .script-card:hover { border-color: rgba(0,200,248,0.25); }
+        .script-header { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); background: rgba(0,200,248,0.04); cursor: pointer; user-select: none; }
+        .script-header:hover { background: rgba(0,200,248,0.08); }
+        .script-filename { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--cyan); font-weight: 600; }
+        .script-desc { font-size: 0.8rem; color: var(--text-dim); flex: 1; }
+        .script-toggle { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); transition: transform 0.3s; }
+        .script-card.open .script-toggle { transform: rotate(180deg); }
+        .script-body { display: none; }
+        .script-card.open .script-body { display: block; }
+
+        .script-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0.9rem 1.4rem; border-bottom: 1px solid var(--border); }
+        .script-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--tag-border); padding: 0.2em 0.6em; border-radius: 4px; }
+
+        .script-desc-full { padding: 1rem 1.4rem; font-size: 0.86rem; color: var(--text); line-height: 1.7; border-bottom: 1px solid var(--border); }
+
+        /* Code blocks */
+        pre.code { background: rgba(0,0,0,0.5); border: none; border-radius: 0; padding: 1.4rem 1.6rem; margin: 0; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; line-height: 1.8; color: #c8d8e8; }
+        .kw { color: #c792ea; } /* keyword */
+        .fn { color: #82aaff; } /* function */
+        .st { color: #c3e88d; } /* string */
+        .cm { color: #546e7a; font-style: italic; } /* comment */
+        .nb { color: #f78c6c; } /* number/builtin */
+        .op { color: #89ddff; } /* operator */
+
+        /* Stat badges */
+        .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+        .stat-badge { background: rgba(0,200,248,0.08); border: 1px solid rgba(0,200,248,0.25); border-radius: var(--radius-sm); padding: 0.6rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text); display: flex; align-items: center; gap: 0.5rem; }
+        .stat-badge span { color: var(--cyan); font-weight: 700; font-size: 1rem; }
+
+        @media (max-width: 600px) { .pipeline { flex-direction: column; } .pipe-arrow { transform: rotate(90deg); } }
     </style>
 </head>
 <body>
@@ -101,39 +81,235 @@
         </div>
     </nav>
 </header>
+
 <div class="sae-page-header">
     <div class="sae-page-header-inner">
         <a href="projets.html" class="back-btn fade-up">← Retour aux projets</a>
         <div class="tags fade-up delay-1" style="margin-top:1rem;">
             <span class="tag">Semestre 1</span>
-            <span class="tag">Programmation Python</span><span class="tag">Algorithmique</span>
+            <span class="tag">Programmation Python</span>
+            <span class="tag">Algorithmique</span>
+            <span class="tag">API REST</span>
         </div>
-        <h1 class="fade-up delay-2">SAÉ 1.5 — Traiter des données</h1>
+        <h1 class="fade-up delay-2">Projet 1.5 — Traiter des données</h1>
     </div>
 </div>
+
 <main>
+    <!-- BLOC 1 -->
     <div class="content-block reveal">
         <h2><span class="block-num">1</span>Description &amp; Objectif</h2>
-        <p>Initiation à la logique algorithmique et au traitement automatisé de l'information. L'objectif était de développer un script Python capable de lire, modifier et analyser un jeu de données spécifique.</p>
+        <p>Initiation à la logique algorithmique et au traitement automatisé de l'information via Python. L'objectif était de concevoir un pipeline complet de collecte, traitement et publication de données géographiques : interrogation d'APIs publiques (OpenStreetMap / Overpass), calcul de statistiques, génération automatique de rapports en Markdown puis conversion en HTML.</p>
     </div>
+
+    <!-- BLOC 2 -->
     <div class="content-block reveal delay-1">
         <h2><span class="block-num">2</span>Apprentissages Critiques</h2>
         <ul class="ac-list">
-            <li><strong>AC13.02 :</strong> Lire, exécuter, corriger et modifier un programme.</li><li><strong>AC13.03 :</strong> Traduire un algorithme dans un langage et pour un environnement donné.</li><li><strong>AC13.06 :</strong> S'intégrer dans un environnement propice au développement.</li>
+            <li><strong>AC13.02 :</strong> Lire, exécuter, corriger et modifier un programme.</li>
+            <li><strong>AC13.03 :</strong> Traduire un algorithme dans un langage et pour un environnement donné.</li>
+            <li><strong>AC13.06 :</strong> S'intégrer dans un environnement propice au développement et au travail collaboratif.</li>
         </ul>
     </div>
+
+    <!-- BLOC 3 : Preuves -->
     <div class="content-block reveal delay-2">
         <h2><span class="block-num">3</span>Tâches réalisées &amp; Preuves</h2>
-        <p>Création d'algorithmes de tri, parsing de fichiers texte/CSV et affichage des résultats via console. Travail sur les boucles, les conditions et la gestion des erreurs.</p>
-        <div class="proof-area">// Insérer ici captures, schémas ou extraits de code</div>
+        <p>Trois scripts Python ont été développés et articulés en pipeline : récupération de données via requêtes HTTP aux APIs OpenStreetMap et Overpass, traitement statistique des résultats JSON, génération de fichiers Markdown structurés, et conversion automatique en HTML.</p>
+
+        <div class="proof-section-title">Architecture du pipeline de données</div>
+        <div class="pipeline">
+            <div class="pipe-step">
+                <div class="ps-icon">🌐</div>
+                <span class="ps-label">API</span>
+                <div class="ps-sub">OpenStreetMap<br>Overpass</div>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step">
+                <div class="ps-icon">🐍</div>
+                <span class="ps-label">Python</span>
+                <div class="ps-sub">requests<br>JSON parsing</div>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step">
+                <div class="ps-icon">📊</div>
+                <span class="ps-label">Stats</span>
+                <div class="ps-sub">compute_statistics()<br>comptages / %</div>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step">
+                <div class="ps-icon">📝</div>
+                <span class="ps-label">Markdown</span>
+                <div class="ps-sub">dataset_to_md()<br>.md généré</div>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step">
+                <div class="ps-icon">🌍</div>
+                <span class="ps-label">HTML</span>
+                <div class="ps-sub">convert()<br>rapport final</div>
+            </div>
+        </div>
+
+        <div class="stat-row">
+            <div class="stat-badge"><span>3</span> scripts Python</div>
+            <div class="stat-badge"><span>2</span> APIs publiques</div>
+            <div class="stat-badge"><span>7</span> statistiques calculées</div>
+            <div class="stat-badge"><span>0</span> framework externe</div>
+        </div>
+
+        <div class="proof-section-title">Script 1 — md_to_html.py</div>
+        <div class="script-card open">
+            <div class="script-header" onclick="toggleCard(this)">
+                <span class="script-filename">md_to_html.py</span>
+                <span class="script-desc">Convertisseur Markdown → HTML via la bibliothèque <code style="color:var(--cyan)">markdown</code></span>
+                <span class="script-toggle">▼</span>
+            </div>
+            <div class="script-body">
+                <div class="script-meta">
+                    <span class="script-badge">import markdown</span>
+                    <span class="script-badge">open() / read()</span>
+                    <span class="script-badge">encodage UTF-8</span>
+                </div>
+                <div class="script-desc-full">
+                    Fonction utilitaire réutilisée par les deux autres scripts. Lit un fichier <code style="color:var(--cyan)">.md</code>, le convertit en HTML via <code style="color:var(--cyan)">markdown.markdown()</code> et écrit le résultat dans un fichier <code style="color:var(--cyan)">.html</code> portant le même nom. Constitue la brique de base du pipeline.
+                </div>
+<pre class="code"><span class="kw">import</span> markdown
+
+<span class="kw">def</span> <span class="fn">convert</span>(nom):
+    <span class="st">"Convertit un fichier Markdown en HTML"</span>
+
+    <span class="kw">with</span> <span class="fn">open</span>(nom + <span class="st">".md"</span>, <span class="st">'r'</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+        text <span class="op">=</span> f.read()
+
+    html <span class="op">=</span> markdown.markdown(text)   <span class="cm"># conversion MD → HTML</span>
+
+    <span class="kw">with</span> <span class="fn">open</span>(nom + <span class="st">".html"</span>, <span class="st">'w'</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+        f.write(html)</pre>
+            </div>
+        </div>
+
+        <div class="proof-section-title">Script 2 — fiche_osm.py</div>
+        <div class="script-card open">
+            <div class="script-header" onclick="toggleCard(this)">
+                <span class="script-filename">fiche_osm.py</span>
+                <span class="script-desc">Génère une fiche HTML d'un nœud OpenStreetMap à partir de son identifiant</span>
+                <span class="script-toggle">▼</span>
+            </div>
+            <div class="script-body">
+                <div class="script-meta">
+                    <span class="script-badge">requests.get()</span>
+                    <span class="script-badge">OSM API v0.6</span>
+                    <span class="script-badge">XML → JSON</span>
+                    <span class="script-badge">dict iteration</span>
+                </div>
+                <div class="script-desc-full">
+                    Interroge l'API REST d'OpenStreetMap pour récupérer les métadonnées d'un nœud (id, lat, lon, tags). Construit un fichier Markdown structuré avec tous les attributs, puis appelle <code style="color:var(--cyan)">convert()</code> pour produire le HTML final.
+                </div>
+<pre class="code"><span class="kw">import</span> requests
+<span class="kw">from</span> md_to_html <span class="kw">import</span> convert
+
+<span class="kw">def</span> <span class="fn">get_node</span>(id: <span class="nb">int</span>) -> <span class="nb">dict</span>:
+    <span class="st">""" Récupère les infos JSON d'un nœud OSM via son id """</span>
+    data <span class="op">=</span> requests.get(
+        <span class="st">f"https://www.openstreetmap.org/api/0.6/node/{id}.json"</span>
+    )
+    <span class="kw">return</span> data.json()
+
+<span class="kw">def</span> <span class="fn">node_to_md</span>(data: <span class="nb">dict</span>, filename: <span class="nb">str</span>) -> <span class="nb">None</span>:
+    <span class="st">""" Écrit les données JSON en Markdown """</span>
+    data2 <span class="op">=</span> data[<span class="st">"elements"</span>][<span class="nb">0</span>]
+    data3 <span class="op">=</span> data2[<span class="st">"tags"</span>]
+
+    <span class="kw">with</span> <span class="fn">open</span>(filename, <span class="st">'w'</span>) <span class="kw">as</span> fichier:
+        fichier.write(<span class="st">"# "</span> <span class="op">+</span> data3[<span class="st">"name"</span>] <span class="op">+</span> <span class="st">"\n"</span>)
+        <span class="kw">for</span> cle, valeur <span class="kw">in</span> data2.items():   <span class="cm"># id, lat, lon…</span>
+            <span class="kw">if</span> cle <span class="op">!=</span> <span class="st">"tags"</span>:
+                fichier.write(<span class="st">f"* {cle} : {valeur}\n"</span>)
+        <span class="kw">for</span> cle, valeur <span class="kw">in</span> data3.items():   <span class="cm"># tags OSM</span>
+            <span class="kw">if</span> cle <span class="op">!=</span> <span class="st">"name"</span>:
+                fichier.write(<span class="st">f"* {cle} : {valeur}\n"</span>)
+
+<span class="kw">def</span> <span class="fn">fiche_osm</span>(id: <span class="nb">int</span>) -> <span class="nb">None</span>:
+    <span class="fn">node_to_md</span>(<span class="fn">get_node</span>(id), <span class="st">"fichier.md"</span>)
+    <span class="fn">convert</span>(<span class="st">"fichier"</span>)   <span class="cm"># → fichier.html</span></pre>
+            </div>
+        </div>
+
+        <div class="proof-section-title">Script 3 — infos_locales.py (script principal)</div>
+        <div class="script-card open">
+            <div class="script-header" onclick="toggleCard(this)">
+                <span class="script-filename">infos_locales.py</span>
+                <span class="script-desc">Analyse complète des arrêts de bus d'une ville — statistiques + rapport Markdown/HTML</span>
+                <span class="script-toggle">▼</span>
+            </div>
+            <div class="script-body">
+                <div class="script-meta">
+                    <span class="script-badge">Overpass API</span>
+                    <span class="script-badge">requests.post()</span>
+                    <span class="script-badge">dict / list</span>
+                    <span class="script-badge">f-strings</span>
+                    <span class="script-badge">sys.argv</span>
+                    <span class="script-badge">boucles for</span>
+                    <span class="script-badge">conditions if</span>
+                </div>
+                <div class="script-desc-full">
+                    Script principal du projet. Envoie une requête Overpass QL pour récupérer tous les arrêts de bus (<code style="color:var(--cyan)">highway=bus_stop</code>) d'une ville via son article Wikipédia. Calcule 7 statistiques (abris, bancs, poubelles, éclairages, accessibilité handicapé, dalles podotactiles, horaires affichés) avec des comptages et pourcentages. Génère ensuite un rapport Markdown détaillé arrêt par arrêt, puis le convertit en HTML.
+                </div>
+<pre class="code"><span class="kw">def</span> <span class="fn">get_dataset</span>(ville: <span class="nb">str</span>) -> <span class="nb">dict</span>:
+    <span class="cm">"""Requête Overpass pour tous les bus_stop de la ville"""</span>
+    requete <span class="op">=</span> <span class="st">f"""
+    [out:json][timeout:300];
+    area["wikipedia"="fr:{ville}"]->.zone;
+    nwr["highway"="bus_stop"](area.zone);
+    out;
+    """</span>
+    url <span class="op">=</span> <span class="st">"https://overpass-api.de/api/interpreter"</span>
+    response <span class="op">=</span> requests.post(url, data={<span class="st">'data'</span>: requete})
+    <span class="kw">return</span> response.json()
+
+<span class="kw">def</span> <span class="fn">compute_statistics</span>(dataset: <span class="nb">dict</span>) -> <span class="nb">dict</span>:
+    <span class="cm">"""Calcule 7 indicateurs sur les arrêts de bus"""</span>
+    elements <span class="op">=</span> dataset.get(<span class="st">'elements'</span>, [])
+    total <span class="op">=</span> <span class="nb">len</span>(elements)
+    nb_abris <span class="op">=</span> nb_bancs <span class="op">=</span> nb_poubelles <span class="op">=</span> <span class="nb">0</span>
+    nb_eclairages <span class="op">=</span> nb_handicap <span class="op">=</span> nb_dalles <span class="op">=</span> <span class="nb">0</span>
+
+    <span class="kw">for</span> obj <span class="kw">in</span> elements:
+        tags <span class="op">=</span> obj.get(<span class="st">'tags'</span>, {})
+        <span class="kw">if</span> tags.get(<span class="st">"shelter"</span>) <span class="op">==</span> <span class="st">"yes"</span>: nb_abris <span class="op">+=</span> <span class="nb">1</span>
+        <span class="kw">if</span> tags.get(<span class="st">"bench"</span>)   <span class="op">==</span> <span class="st">"yes"</span>: nb_bancs <span class="op">+=</span> <span class="nb">1</span>
+        <span class="kw">if</span> tags.get(<span class="st">"bin"</span>)     <span class="op">==</span> <span class="st">"yes"</span>: nb_poubelles <span class="op">+=</span> <span class="nb">1</span>
+        <span class="kw">if</span> tags.get(<span class="st">"lit"</span>)     <span class="op">==</span> <span class="st">"yes"</span>: nb_eclairages <span class="op">+=</span> <span class="nb">1</span>
+        <span class="kw">if</span> tags.get(<span class="st">"wheelchair"</span>) <span class="op">==</span> <span class="st">"yes"</span>: nb_handicap <span class="op">+=</span> <span class="nb">1</span>
+        <span class="kw">if</span> tags.get(<span class="st">"tactile_paving"</span>) <span class="op">==</span> <span class="st">"yes"</span>: nb_dalles <span class="op">+=</span> <span class="nb">1</span>
+
+    <span class="kw">return</span> {
+        <span class="st">"Nombre d'arrêts"</span>  : total,
+        <span class="st">"Abris"</span>            : <span class="st">f"{nb_abris} ({nb_abris*100//total}%)"</span>,
+        <span class="st">"Bancs"</span>            : <span class="st">f"{nb_bancs} ({nb_bancs*100//total}%)"</span>,
+        <span class="st">"Éclairage"</span>        : <span class="st">f"{nb_eclairages} ({nb_eclairages*100//total}%)"</span>,
+        <span class="st">"Accessibilité PMR"</span>: <span class="st">f"{nb_handicap} ({nb_handicap*100//total}%)"</span>,
+    }
+
+<span class="kw">def</span> <span class="fn">infos_locales</span>(ville: <span class="nb">str</span>, filename: <span class="nb">str</span>) -> <span class="nb">None</span>:
+    <span class="cm">"""Chaîne complète : API → stats → Markdown → HTML"""</span>
+    donnees <span class="op">=</span> <span class="fn">get_dataset</span>(ville)
+    <span class="fn">dataset_to_md</span>(donnees, filename, ville)
+    <span class="fn">convert</span>(filename)   <span class="cm"># appel md_to_html.py</span>
+
+<span class="cm"># Utilisation en ligne de commande :</span>
+<span class="cm"># python infos_locales.py Caen rapport_caen</span></pre>
+            </div>
+        </div>
     </div>
+
+    <!-- BLOC 4 -->
     <div class="content-block reflexion-block reveal delay-3">
         <h2><span class="block-num">4</span>Autoévaluation &amp; Réflexion</h2>
         <div class="reflexion-item">
             <span class="r-label">Ce que j'ai appris</span>
-            <p><em>[À compléter avec tes apprentissages personnels sur cette SAÉ.]</em></p>
+            <p>J'ai découvert la programmation Python en partant de zéro : manipulation de dictionnaires et listes, boucles <code style="color:var(--cyan)">for</code>, conditions <code style="color:var(--cyan)">if</code>, fonctions avec docstrings, lecture/écriture de fichiers et gestion de l'encodage UTF-8. Au-delà de la syntaxe, j'ai compris la notion de pipeline de données : comment chaîner des fonctions pour transformer une requête API brute en rapport HTML lisible. J'ai également pris en main <code style="color:var(--cyan)">requests</code> pour interroger des APIs REST publiques et travailler avec du JSON.</p>
         </div>
-        
         <div class="diff-table-wrap">
             <table class="diff-table">
                 <thead>
@@ -146,21 +322,21 @@
                     <tr>
                         <td>
                             <span class="row-num">#01</span>
-                            <em style="color:var(--text-dim)">[À compléter — décris une difficulté rencontrée]</em>
+                            Construire la requête Overpass QL correctement : la syntaxe pour filtrer les arrêts de bus dans une zone définie par son article Wikipédia n'était pas intuitive et générait des erreurs de timeout.
                         </td>
                         <td>
                             <span class="row-num">#01</span>
-                            <em style="color:var(--text-dim)">[À compléter — décris la solution apportée]</em>
+                            Lecture de la documentation Overpass et tests progressifs sur le playground en ligne. Ajout du paramètre <code>[timeout:300]</code> pour les grandes villes et utilisation de <code>requests.post()</code> plutôt que <code>get()</code> pour envoyer la requête dans le corps.
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <span class="row-num">#02</span>
-                            <em style="color:var(--text-dim)">[À compléter — décris une autre difficulté]</em>
+                            Certains arrêts de bus n'avaient pas de balise <code>name</code> dans leurs tags OSM, ce qui provoquait une <code>KeyError</code> lors de l'écriture du Markdown.
                         </td>
                         <td>
                             <span class="row-num">#02</span>
-                            <em style="color:var(--text-dim)">[À compléter — décris la solution correspondante]</em>
+                            Utilisation de la méthode <code>dict.get(clé, valeur_défaut)</code> systématiquement : <code>tags.get('name', 'Arrêt sans nom')</code> permet de fournir une valeur de repli et d'éviter l'exception.
                         </td>
                     </tr>
                 </tbody>
@@ -168,14 +344,20 @@
         </div>
     </div>
 </main>
+
 <footer>
     <p>Thibaut Lenoble © 2025 — Portfolio BUT R&amp;T | IUT Grand Ouest Normandie, Caen</p>
 </footer>
+
 <script>
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function toggleCard(header) {
+        header.parentElement.classList.toggle('open');
+    }
 </script>
 </body>
 </html>

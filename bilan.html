@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilan — Thibaut Lenoble</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* === PAGE HEADER === */
+        .bilan-page-header {
+            background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 5.5rem 5% 3rem;
+        }
+        .bilan-page-header-inner { max-width: 1000px; margin: auto; }
+        .bilan-page-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            color: var(--white);
+            margin: 1rem 0 0.5rem;
+        }
+        main { max-width: 1000px; margin: 0 auto; padding: 3rem 5% 5rem; position: relative; z-index: 1; }
+
+        /* === INTRO GRID === */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .intro-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .intro-card:hover { border-color: rgba(0,200,248,0.2); transform: translateY(-3px); }
+        .intro-card .ic-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--cyan);
+            display: block;
+            line-height: 1;
+        }
+        .intro-card .ic-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-top: 0.4rem;
+        }
+
+        /* === COMPETENCE BLOCKS === */
+        .comp-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .comp-block:hover { border-color: rgba(0,200,248,0.15); }
+
+        .comp-header {
+            padding: 1.8rem 2.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .comp-icon {
+            width: 52px; height: 52px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            border: 1px solid;
+        }
+        .comp-header-text { flex: 1; }
+        .comp-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        .comp-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        .comp-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+        }
+        .comp-level {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.4rem;
+            flex-shrink: 0;
+        }
+        .level-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .level-bar {
+            width: 120px;
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .level-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+
+        .comp-body { padding: 2rem 2.5rem; }
+
+        /* AC list with check */
+        .ac-bilan-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1.8rem;
+        }
+        .ac-bilan-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            font-size: 0.87rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .ac-check {
+            width: 20px; height: 20px;
+            border-radius: 5px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.65rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            font-weight: 700;
+        }
+        .ac-check.done { background: rgba(112,200,160,0.15); border: 1px solid rgba(112,200,160,0.4); color: #70c8a0; }
+        .ac-check.partial { background: rgba(249,199,79,0.12); border: 1px solid rgba(249,199,79,0.35); color: #f9c74f; }
+        .ac-code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; flex-shrink: 0; }
+
+        /* Projects linked */
+        .linked-projects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+        .proj-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--cyan-dim);
+            border: 1px solid var(--tag-border);
+            border-radius: var(--radius-sm);
+            padding: 0.35rem 0.8rem;
+            font-size: 0.78rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .proj-chip:hover { background: rgba(0,200,248,0.2); transform: translateY(-1px); }
+
+        /* Analysis text */
+        .analysis-block {
+            background: rgba(0,0,0,0.2);
+            border-left: 3px solid;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .analysis-block .a-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .analysis-block p {
+            font-size: 0.88rem;
+            color: var(--text);
+            line-height: 1.8;
+            margin: 0;
+        }
+        .analysis-block.strengths { border-color: #70c8a0; }
+        .analysis-block.strengths .a-label { color: #70c8a0; }
+        .analysis-block.progress { border-color: #f9c74f; }
+        .analysis-block.progress .a-label { color: #f9c74f; }
+        .analysis-block.projection { border-color: var(--cyan); }
+        .analysis-block.projection .a-label { color: var(--cyan); }
+
+        /* Section divider */
+        .section-div {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--cyan);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin: 3rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-div::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        /* Global projection */
+        .projection-card {
+            background: linear-gradient(135deg, rgba(0,200,248,0.06), rgba(0,200,248,0.02));
+            border: 1px solid rgba(0,200,248,0.2);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+        }
+        .projection-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1.2rem;
+        }
+        .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+        .proj-item { background: rgba(0,0,0,0.25); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.2rem; }
+        .proj-item .pi-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--cyan); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+        .proj-item p { font-size: 0.85rem; color: var(--text); line-height: 1.7; margin: 0; }
+
+        /* Colours per competence */
+        .rt1 { color: #60a5fa; }
+        .rt1-bg { background: rgba(96,165,250,0.12); border-color: rgba(96,165,250,0.35); }
+        .rt1-fill { background: linear-gradient(90deg, #60a5fa, #93c5fd); }
+        .rt2 { color: #a78bfa; }
+        .rt2-bg { background: rgba(167,139,250,0.12); border-color: rgba(167,139,250,0.35); }
+        .rt2-fill { background: linear-gradient(90deg, #a78bfa, #c4b5fd); }
+        .rt3 { color: #34d399; }
+        .rt3-bg { background: rgba(52,211,153,0.12); border-color: rgba(52,211,153,0.35); }
+        .rt3-fill { background: linear-gradient(90deg, #34d399, #6ee7b7); }
+
+        @media (max-width: 768px) {
+            .intro-grid { grid-template-columns: repeat(3, 1fr); }
+            .comp-header { flex-direction: column; gap: 1rem; }
+            .comp-level { align-items: flex-start; }
+            .level-bar { width: 100px; }
+            .proj-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 500px) {
+            .intro-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="index.html" class="logo">Thibaut<span>.</span></a>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="projets.html">Projets</a>
+            <a href="bilan.html" class="active">Bilan</a>
+        </div>
+    </nav>
+</header>
+
+<div class="bilan-page-header">
+    <div class="bilan-page-header-inner">
+        <div class="tags fade-up" style="margin-top:0;">
+            <span class="tag">Semestre 1 &amp; 2</span>
+            <span class="tag">BUT R&T</span>
+            <span class="tag">Tronc commun</span>
+        </div>
+        <h1 class="fade-up delay-1">Bilan par Compétence</h1>
+        <p class="fade-up delay-2" style="color:var(--text-dim); font-size:0.95rem; margin-top:0.8rem; max-width:600px;">
+            Synthèse réflexive de ma progression sur les trois compétences du référentiel BUT R&T au terme des semestres 1 et 2.
+        </p>
+    </div>
+</div>
+
+<main>
+    <!-- Stats rapides -->
+    <div class="intro-grid reveal">
+        <div class="intro-card">
+            <span class="ic-num" style="color:#60a5fa">5</span>
+            <div class="ic-label">Projets réalisés<br>S1</div>
+        </div>
+        <div class="intro-card">
+            <span class="ic-num" style="color:#a78bfa">3</span>
+            <div class="ic-label">Compétences<br>développées</div>
+        </div>
+        <div class="intro-card">
+            <span class="ic-num" style="color:#34d399">12</span>
+            <div class="ic-label">Apprentissages<br>critiques couverts</div>
+        </div>
+    </div>
+
+    <div class="section-div reveal">Semestre 1 — Bilan des compétences</div>
+
+    <!-- RT1 -->
+    <div class="comp-block reveal">
+        <div class="comp-header">
+            <div class="comp-icon rt1-bg" style="border-color:rgba(96,165,250,0.4)">🌐</div>
+            <div class="comp-header-text">
+                <span class="comp-code rt1">RT1 — Niveau 1</span>
+                <div class="comp-title">Administrer les réseaux et l'Internet</div>
+                <div class="comp-subtitle">Assister l'administrateur du réseau · Projet 1.2</div>
+            </div>
+            <div class="comp-level">
+                <span class="level-label">Maîtrise</span>
+                <div class="level-bar"><div class="level-fill rt1-fill" style="width:75%"></div></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#60a5fa">Satisfaisant</span>
+            </div>
+        </div>
+        <div class="comp-body">
+            <div class="linked-projects">
+                <a href="sae-1-02.html" class="proj-chip">→ Projet 1.2 — Réseaux informatiques</a>
+            </div>
+            <ul class="ac-bilan-list">
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt1">AC11.02</span>
+                    <span>Comprendre l'architecture des systèmes numériques et les principes du codage de l'information — maîtrisé via le plan d'adressage IP et le calcul de sous-réseaux pour 150 machines par VLAN.</span>
+                </li>
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt1">AC11.03</span>
+                    <span>Configurer les fonctions de base du réseau local — VLANs 200 à 250, routage inter-VLANs, RSTP et agrégation de liens configurés sur switches Cisco.</span>
+                </li>
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt1">AC11.04</span>
+                    <span>Maîtriser les systèmes d'exploitation pour la configuration réseau — administration d'un serveur Debian (partitionnement Ext4/XFS, SSH sécurisé ANSSI, services DHCP/DNS/SMB/Apache2).</span>
+                </li>
+                <li>
+                    <span class="ac-check partial">~</span>
+                    <span class="ac-code rt1">AC11.05</span>
+                    <span>Identifier les dysfonctionnements du réseau local — diagnostics avec Iperf3 pour valider les débits, mais le travail de debugging avancé reste à approfondir.</span>
+                </li>
+            </ul>
+            <div class="analysis-block strengths">
+                <span class="a-label">Points forts</span>
+                <p>Conception d'un réseau complet de bout en bout (calcul IP → VLAN → routage → services). La commande <code style="color:#70c8a0">newusers</code> pour créer des comptes en masse sans boucle bash témoigne d'une capacité à chercher des solutions alternatives face à des contraintes fortes.</p>
+            </div>
+            <div class="analysis-block progress">
+                <span class="a-label">Axes de progression</span>
+                <p>Approfondir le diagnostic réseau avec des outils comme Wireshark. Mieux documenter les procédures d'administration Linux pour les rendre reproductibles et explicables à un tiers.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RT2 -->
+    <div class="comp-block reveal delay-1">
+        <div class="comp-header">
+            <div class="comp-icon rt2-bg" style="border-color:rgba(167,139,250,0.4)">📡</div>
+            <div class="comp-header-text">
+                <span class="comp-code rt2">RT2 — Niveau 1</span>
+                <div class="comp-title">Connecter les entreprises et les usagers</div>
+                <div class="comp-subtitle">Découvrir les transmissions et la ToIP · Projet 1.3</div>
+            </div>
+            <div class="comp-level">
+                <span class="level-label">Maîtrise</span>
+                <div class="level-bar"><div class="level-fill rt2-fill" style="width:80%"></div></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#a78bfa">Bien maîtrisé</span>
+            </div>
+        </div>
+        <div class="comp-body">
+            <div class="linked-projects">
+                <a href="sae-1-03.html" class="proj-chip">→ Projet 1.3 — Dispositif de transmission</a>
+            </div>
+            <ul class="ac-bilan-list">
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt2">AC12.01</span>
+                    <span>Mesurer et analyser les signaux — oscilloscope SIGLENT pour mesurer ΔX = 14.80 ns, analyseur de spectre SVA1000X pour la DTF, calcul L = c × NVP × tp → 2.93 m.</span>
+                </li>
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt2">AC12.03</span>
+                    <span>Déployer des supports de transmission — liaison fibre optique FTTH déployée sur panneau de brassage, bilan optique réalisé avec photomètre VIAVI OLP-35 à 1550 nm : 8.80 dB.</span>
+                </li>
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt2">AC12.05</span>
+                    <span>Communiquer avec un tiers — rédaction de deux rapports de mesure complets (DTF et photométrie) présentant méthodologie, résultats et conclusions de façon professionnelle.</span>
+                </li>
+            </ul>
+            <div class="analysis-block strengths">
+                <span class="a-label">Points forts</span>
+                <p>Très bonne rigueur de mesure : protocole de nettoyage des connecteurs SC/APC, étalonnage systématique du photomètre avant chaque mesure, et vérification croisée entre DTF (3.07 m) et oscilloscope (2.93 m) pour valider les résultats.</p>
+            </div>
+            <div class="analysis-block progress">
+                <span class="a-label">Axes de progression</span>
+                <p>AC12.02 (modélisation mathématique des systèmes de transmission) peu abordé en S1 — à approfondir en S2 via le Projet 2.2. La pratique de l'OTDR pour la fibre reste à acquérir.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RT3 -->
+    <div class="comp-block reveal delay-2">
+        <div class="comp-header">
+            <div class="comp-icon rt3-bg" style="border-color:rgba(52,211,153,0.4)">💻</div>
+            <div class="comp-header-text">
+                <span class="comp-code rt3">RT3 — Niveau 1</span>
+                <div class="comp-title">Créer des outils et des applications informatiques</div>
+                <div class="comp-subtitle">S'intégrer dans un service informatique · Projets 1.4 &amp; 1.5</div>
+            </div>
+            <div class="comp-level">
+                <span class="level-label">Maîtrise</span>
+                <div class="level-bar"><div class="level-fill rt3-fill" style="width:70%"></div></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#34d399">Satisfaisant</span>
+            </div>
+        </div>
+        <div class="comp-body">
+            <div class="linked-projects">
+                <a href="sae-1-04.html" class="proj-chip">→ Projet 1.4 — Site internet</a>
+                <a href="sae-1-05.html" class="proj-chip">→ Projet 1.5 — Traitement de données</a>
+            </div>
+            <ul class="ac-bilan-list">
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt3">AC13.01</span>
+                    <span>Utiliser un système informatique et ses outils — maîtrise de VS Code, Git/GitHub, GitHub Pages et de l'environnement de développement web complet.</span>
+                </li>
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt3">AC13.02</span>
+                    <span>Lire, exécuter, corriger et modifier un programme — scripts Python corrigés (gestion <code style="color:#34d399">KeyError</code> avec <code style="color:#34d399">.get()</code>), code HTML/CSS débogué et itéré au fil du développement.</span>
+                </li>
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt3">AC13.03</span>
+                    <span>Traduire un algorithme dans un langage donné — pipeline API→JSON→Markdown→HTML implémenté en Python, logique de carrousel CSS traduite depuis une logique conditionnelle.</span>
+                </li>
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt3">AC13.04</span>
+                    <span>Connaître l'architecture d'un site Web — site 5 pages avec charte graphique cohérente, Flexbox, media queries, animations CSS, hébergé sur GitHub Pages.</span>
+                </li>
+                <li>
+                    <span class="ac-check partial">~</span>
+                    <span class="ac-code rt3">AC13.05</span>
+                    <span>Choisir les mécanismes de gestion de données — utilisation de dictionnaires Python et JSON, mais la gestion de bases de données structurées (SQL) reste à aborder en S2.</span>
+                </li>
+                <li>
+                    <span class="ac-check done">✓</span>
+                    <span class="ac-code rt3">AC13.06</span>
+                    <span>S'intégrer dans un environnement de développement — Git avec commits nommés, GitHub Pages, structure de projet organisée, environnements Python avec bibliothèques externes.</span>
+                </li>
+            </ul>
+            <div class="analysis-block strengths">
+                <span class="a-label">Points forts</span>
+                <p>La compétence "créer des outils" est celle où j'ai investi le plus. Avoir réalisé un carrousel interactif en CSS pur sans JavaScript (Projet 1.4) et un pipeline de données complet interrogeant deux APIs publiques (Projet 1.5) prouve une capacité à aller au-delà des attendus minimaux.</p>
+            </div>
+            <div class="analysis-block progress">
+                <span class="a-label">Axes de progression</span>
+                <p>AC13.05 à renforcer via les bases de données relationnelles (SQL, SQLite). La structuration du code en modules réutilisables et la gestion d'erreurs robuste sont des axes à développer en S2.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projection globale -->
+    <div class="section-div reveal">Projection &amp; Perspectives</div>
+
+    <div class="projection-card reveal">
+        <h3>Bilan global et orientation professionnelle</h3>
+        <div class="proj-grid">
+            <div class="proj-item">
+                <span class="pi-label">📈 Progression observée</span>
+                <p>En un an, je suis passé de zéro connaissance en réseaux et programmation à la capacité de déployer une infrastructure réseau complète (VLANs, routage, services Linux), de réaliser des mesures de certification sur fibre et cuivre, et de développer des scripts Python connectés à des APIs publiques. La progression la plus significative est sur RT3, où j'ai appris à penser en termes de pipeline et d'abstraction.</p>
+            </div>
+            <div class="proj-item">
+                <span class="pi-label">🎯 Objectifs S2</span>
+                <p>Approfondir RT1 avec le routage dynamique (OSPF), consolider RT2 avec la modélisation mathématique des signaux, et développer RT3 vers les bases de données et les applications réseaux. Le Projet 2.4 (projet intégratif) sera l'occasion de combiner réseau physique et développement logiciel dans un contexte professionnel simulé.</p>
+            </div>
+            <div class="proj-item">
+                <span class="pi-label">💼 Orientation professionnelle</span>
+                <p>Mon intérêt se porte sur les métiers à la croisée des réseaux et du développement : administrateur systèmes et réseaux, ingénieur DevOps, ou technicien infrastructure cloud. La certification Hygiène Informatique ANSSI obtenue en S1 renforce mon attrait pour la cybersécurité, envisageable comme spécialisation en S3.</p>
+            </div>
+            <div class="proj-item">
+                <span class="pi-label">🔧 Compétences transversales</span>
+                <p>Au-delà des compétences techniques, ces deux semestres m'ont appris à travailler en équipe sur des projets contraints dans le temps, à rédiger des rapports techniques clairs et à adapter mon discours selon l'interlocuteur (CR de mesure, README, portfolio). L'autonomie acquise dans la résolution de problèmes bloquants reste la compétence que je valorise le plus.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Thibaut Lenoble © 2025 — Portfolio BUT R&amp;T | IUT Grand Ouest Normandie, Caen</p>
+    <p style="margin-top:0.4rem;">
+        <a href="mailto:thibautlenoble21@gmail.com">thibautlenoble21@gmail.com</a>
+        &nbsp;·&nbsp; 07 69 53 25 81
+    </p>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                // Animate level bars
+                e.target.querySelectorAll('.level-fill').forEach(bar => {
+                    const w = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => { bar.style.width = w; }, 200);
+                });
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
