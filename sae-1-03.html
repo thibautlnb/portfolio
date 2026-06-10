@@ -60,17 +60,46 @@
             font-size: 0.88rem;
         }
         .ac-list li strong { color: var(--cyan); }
-        .proof-area {
-            background: rgba(0,0,0,0.25);
-            border: 1px dashed rgba(0,200,248,0.2);
-            border-radius: var(--radius-sm);
-            padding: 2rem;
-            margin: 1.5rem 0;
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            font-family: 'JetBrains Mono', monospace;
-            text-align: center;
+
+        /* === PROOF GRID === */
+        .proof-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
         }
+        .proof-fig {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .proof-fig:hover {
+            border-color: rgba(0,200,248,0.25);
+            transform: translateY(-2px);
+        }
+        .proof-fig img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            background: #060c18;
+        }
+        .proof-fig figcaption {
+            padding: 0.65rem 0.9rem;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            border-top: 1px solid var(--border);
+            line-height: 1.55;
+        }
+        .proof-fig figcaption strong {
+            color: var(--cyan);
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        /* === REFLEXION === */
         .reflexion-block {
             background: linear-gradient(135deg, rgba(0,200,248,0.05), rgba(0,200,248,0.02));
             border: 1px solid rgba(0,200,248,0.15);
@@ -87,7 +116,10 @@
             display: block;
         }
         .reflexion-item p { color: var(--text); font-size: 0.9rem; }
-        .reflexion-item em { color: var(--text-dim); font-style: italic; }
+
+        @media (max-width: 600px) {
+            .proof-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -101,38 +133,64 @@
         </div>
     </nav>
 </header>
+
 <div class="sae-page-header">
     <div class="sae-page-header-inner">
         <a href="projets.html" class="back-btn fade-up">← Retour aux projets</a>
         <div class="tags fade-up delay-1" style="margin-top:1rem;">
             <span class="tag">Semestre 1</span>
-            <span class="tag">Télécoms</span><span class="tag">Fibre &amp; Cuivre</span>
+            <span class="tag">Télécoms</span>
+            <span class="tag">Fibre &amp; Cuivre</span>
         </div>
         <h1 class="fade-up delay-2">Projet 1.3 — Découvrir un dispositif de transmission</h1>
     </div>
 </div>
+
 <main>
     <div class="content-block reveal">
         <h2><span class="block-num">1</span>Description &amp; Objectif</h2>
         <p>Introduction pratique aux supports physiques de transmission (câbles en cuivre et fibre optique). L'objectif était de comprendre et reproduire des mesures de certification à l'aide d'équipements professionnels (analyseur de spectre, oscilloscope, photomètre) pour en déduire leurs caractéristiques physiques.</p>
     </div>
+
     <div class="content-block reveal delay-1">
         <h2><span class="block-num">2</span>Apprentissages Critiques</h2>
         <ul class="ac-list">
-            <li><strong>AC1 :</strong> Mesurer et analyser les signaux.</li><li><strong>AC2 :</strong> Déployer des supports de transmission.</li><li><strong>AC3 :</strong> Communiquer avec un tiers et adapter son discours.</li>
+            <li><strong>AC12.01 :</strong> Mesurer et analyser les signaux.</li>
+            <li><strong>AC12.03 :</strong> Déployer des supports de transmission.</li>
+            <li><strong>AC12.05 :</strong> Communiquer avec un tiers et adapter son discours à son interlocuteur.</li>
         </ul>
     </div>
+
     <div class="content-block reveal delay-2">
         <h2><span class="block-num">3</span>Tâches réalisées &amp; Preuves</h2>
         <p>Caractérisation de câbles coaxiaux (RG58) via la technique DTF et mesures de temps de propagation à l'oscilloscope. Déploiement d'une liaison fibre optique FTTH et réalisation d'un bilan optique par photométrie à 1550 nm.</p>
-        <div class="proof-area">// Insérer ici captures, schémas ou extraits de code</div>
+
+        <div class="proof-grid">
+            <figure class="proof-fig">
+                <img src="./proof_oscillo_calcul.jpg" alt="Oscilloscope SIGLENT — ΔX = 14.80 ns, L = 2.93 m">
+                <figcaption>
+                    <strong>// Oscilloscope SIGLENT — câble RG58</strong>
+                    ΔX = 14.80 ns entre signal émis et réfléchi. Formule L = c × NVP × t<sub>p</sub> → L = 2.93 m.
+                </figcaption>
+            </figure>
+            <figure class="proof-fig">
+                <img src="./proof_viavi_8_80dB.png" alt="Photomètre VIAVI OLP-35 — 8.80 dB">
+                <figcaption>
+                    <strong>// Photomètre VIAVI OLP-35 — liaison L6</strong>
+                    Atténuation totale mesurée à 1550 nm après nettoyage des connecteurs et étalonnage : 8.80 dB.
+                </figcaption>
+            </figure>
+        </div>
     </div>
+
     <div class="content-block reflexion-block reveal delay-3">
         <h2><span class="block-num">4</span>Autoévaluation &amp; Réflexion</h2>
+
         <div class="reflexion-item">
             <span class="r-label">Ce que j'ai appris</span>
             <p>J'ai appris à utiliser des appareils de mesure professionnels. Sur le cuivre, j'ai compris la détection de défaut par réflectométrie (DTF) et le calcul de la NVP. Côté fibre, j'ai découvert le déploiement FTTH et les règles d'hygiène optique (nettoyage des connecteurs) avant mesure au photomètre.</p>
         </div>
+
         <div class="diff-table-wrap">
             <table class="diff-table">
                 <thead>
@@ -167,9 +225,11 @@
         </div>
     </div>
 </main>
+
 <footer>
     <p>Thibaut Lenoble © 2025 — Portfolio BUT R&amp;T | IUT Grand Ouest Normandie, Caen</p>
 </footer>
+
 <script>
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });

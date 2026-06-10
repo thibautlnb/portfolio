@@ -60,17 +60,29 @@
             font-size: 0.88rem;
         }
         .ac-list li strong { color: var(--cyan); }
+        
         .proof-area {
-            background: rgba(0,0,0,0.25);
-            border: 1px dashed rgba(0,200,248,0.2);
+            background: #0f141c;
+            border: 1px dashed rgba(0,200,248,0.3);
             border-radius: var(--radius-sm);
-            padding: 2rem;
+            padding: 1.5rem;
             margin: 1.5rem 0;
-            color: var(--text-dim);
-            font-size: 0.85rem;
+            color: #adbac7;
+            font-size: 0.82rem;
             font-family: 'JetBrains Mono', monospace;
-            text-align: center;
+            text-align: left;
+            overflow-x: auto;
+            white-space: pre-wrap;
         }
+        .proof-title {
+            font-weight: bold;
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.25rem;
+        }
+        
         .reflexion-block {
             background: linear-gradient(135deg, rgba(0,200,248,0.05), rgba(0,200,248,0.02));
             border: 1px solid rgba(0,200,248,0.15);
@@ -88,6 +100,12 @@
         }
         .reflexion-item p { color: var(--text); font-size: 0.9rem; }
         .reflexion-item em { color: var(--text-dim); font-style: italic; }
+        
+        .diff-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .diff-table th, .diff-table td { border: 1px solid var(--border); padding: 0.75rem 1rem; text-align: left; font-size: 0.88rem; vertical-align: top; }
+        .diff-table th { background: rgba(0,200,248,0.08); color: var(--white); font-family: 'Space Grotesk', sans-serif; }
+        .row-num { display: inline-block; background: var(--cyan-dim); color: var(--cyan); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-right: 0.5rem; font-family: 'JetBrains Mono', monospace; }
+        .th-icon { margin-right: 0.5rem; }
     </style>
 </head>
 <body>
@@ -114,24 +132,68 @@
 <main>
     <div class="content-block reveal">
         <h2><span class="block-num">1</span>Description &amp; Objectif</h2>
-        <p>Création complète d'un site internet personnel, dynamique et responsive, servant de portfolio professionnel. L'objectif était de maîtriser les bases du développement front-end et de soigner la présentation en ligne d'un profil étudiant.</p>
+        <p>Dans le cadre de cette SAÉ (SAÉ 1.04 / SAE14), j'ai conçu et entièrement développé un site internet multipages composé de 5 pages sémantiques distinctes, dédié à ma passion : la musculation et le bodybuilding. L'objectif principal était de construire un site web moderne, adaptatif (Responsive Web Design), respectueux des standards du W3C et accessible (normes WCAG 2.0 AA), tout en apprenant à piloter mon environnement et mes versions de fichiers de manière professionnelle.</p>
     </div>
+    
     <div class="content-block reveal delay-1">
         <h2><span class="block-num">2</span>Apprentissages Critiques</h2>
         <ul class="ac-list">
-            <li><strong>AC13.01 :</strong> Identifier les différents composants dun système numérique.</li><li><strong>AC13.04 :</strong> Connaître larchitecture et les technologies dun site Web.</li><li><strong>AC13.06 :</strong> Sintégrer dans un environnement propice au développement.</li>
+            <li><strong>AC13.01 : Identifier les différents composants d'un système numérique.</strong> Maîtrise globale de l'environnement client-serveur. Compréhension du rôle du navigateur (moteur de rendu côté client) et de l'hébergement cloud distant mis en place pour le projet via le service GitHub Pages.</li>
+            <li><strong>AC13.04 : Connaître l'architecture et les technologies d'un site Web.</strong> Découverte et mise en application pratique de l'architecture sémantique HTML5 associée aux propriétés CSS3 avancées (utilisation de Flexbox pour l'alignement des éléments et gestion adaptative globale via Media Queries).</li>
+            <li><strong>AC13.06 : S'intégrer dans un environnement propice au développement.</strong> Initialisation et exploitation d'un dépôt Git local et distant (GitHub). Gestion structurée de l'avancement à l'aide de commits porteurs de sens, rédaction d'un fichier de documentation centralisé (README.md) et utilisation d'outils de planification (Rétroplanning XLSX).</li>
         </ul>
     </div>
+    
     <div class="content-block reveal delay-2">
         <h2><span class="block-num">3</span>Tâches réalisées &amp; Preuves</h2>
-        <p>Conception de la maquette, structuration HTML sémantique, mise en forme CSS responsive (flexbox, media queries), intégration des contenus textuels et visuels, et publication du site.</p>
-        <div class="proof-area">// Insérer ici captures, schémas ou extraits de code</div>
+        <p>Le projet a été mené de manière méthodique en suivant les 3 grandes étapes recommandées : la phase de conception (définition de la charte graphique et de l'architecture de l'information), la phase de développement technique (codage HTML/CSS des sections), et la phase de validation de conformité (W3C/WCAG).</p>
+        
+        <div class="proof-area">
+            <span class="proof-title">Preuve #01 : Architecture multipages sémantique et Documentation (README.md)</span>
+            Le site s'appuie sur une structure modulaire de 5 fichiers HTML interconnectés, associés à un dossier CSS contenant des feuilles de style dédiées par page afin d'appliquer une identité visuelle propre (grâce à des linear-gradients spécifiques) :
+            <br><br>
+            - index.html (Accueil - Hub central) 🔴
+            - pratique.html (Styles d'entraînement : Bodybuilding, Powerlifting, Street Workout, CrossFit) 🔵
+            - materiel.html (Guide complet des équipements et accessoires) 🟣
+            - nutrition.html (Macronutriments, guides de Prise de masse et de Sèche) 🟢
+            - Apropos.html (Profil personnel, Personal Records et programme interactif) 🟠
+            <br><br>
+            L'ensemble du projet a été poussé en ligne et rendu accessible au public à l'adresse de déploiement GitHub Pages officielle : <a href="https://thibautlnb.github.io/site-internet/" target="_blank" style="color:var(--cyan)">https://thibautlnb.github.io/site-internet/</a>.
+        </div>
+
+        <div class="proof-area">
+            <span class="proof-title">Preuve #02 : Algorithme d'interactivité graphique en CSS Pur (Extrait de Apropos.html)</span>
+            Pour intégrer une animation interactive sans JavaScript, j'ai implémenté un système de carrousel (slider) 100 % CSS. Celui-ci exploite les liaisons sémantiques entre des balises masquées &lt;input type="radio"&gt; et leurs labels correspondants pour faire glisser la piste interne (.inner-track) :
+<pre style="margin: 5px 0; color: #8ab4f8;">
+&lt;!-- Structure de contrôle du Carrousel Push / Pull / Legs --&gt;
+&lt;input type="radio" name="slider" id="slide1" checked&gt;
+&lt;input type="radio" name="slider" id="slide2"&gt;
+&lt;input type="radio" name="slider" id="slide3"&gt;
+
+&lt;div class="slides-inner"&gt;
+    &lt;div class="inner-track"&gt;
+        &lt;div class="slide"&gt;&lt;div class="training-card"&gt;&lt;h3&gt;Jour Push&lt;/h3&gt;...&lt;/div&gt;&lt;/div&gt;
+        &lt;div class="slide"&gt;&lt;div class="training-card"&gt;&lt;h3&gt;Jour Pull&lt;/h3&gt;...&lt;/div&gt;&lt;/div&gt;
+        &lt;div class="slide"&gt;&lt;div class="training-card"&gt;&lt;h3&gt;Jour Legs&lt;/h3&gt;...&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+            En CSS, la translation s'effectue dynamiquement lors du changement d'état (exemple : <code>#slide2:checked ~ .slides-inner .inner-track { transform: translateX(-33.33%); }</code>), offrant une navigation fluide.
+        </div>
+
+        <div class="proof-area">
+            <span class="proof-title">Preuve #03 : Validation Technique et Accessibilité Standards</span>
+            Afin de valider la conformité technique demandée dans les critères d'évaluation :
+            1. <strong>Validation W3C :</strong> Chaque page a été soumise au validateur officiel (W3C Markup Validation Service) afin de nettoyer les balises obsolètes et garantir un code HTML5/CSS3 valide et sans erreurs.
+            2. <strong>Accessibilité WCAG 2.0 AA :</strong> Utilisation systématique de l'attribut <code>alt</code> explicite sur l'intégralité des images du site (ex: <code>alt="Image d'un Bodybuilder"</code> ou <code>alt="image de macronutriments"</code>) pour permettre la lecture correcte par les synthèses vocales des personnes malvoyantes.
+        </div>
     </div>
+    
     <div class="content-block reflexion-block reveal delay-3">
         <h2><span class="block-num">4</span>Autoévaluation &amp; Réflexion</h2>
         <div class="reflexion-item">
             <span class="r-label">Ce que j'ai appris</span>
-            <p>J'ai appris les fondamentaux du HTML sémantique et du CSS : structuration des balises, modèle de boîte, mise en page par flexbox et positionnement. J'ai également compris l'importance du responsive design et comment adapter un site à différentes tailles d'écran.</p>
+            <p>Ce projet m'a permis de comprendre l'intérêt fondamental de la sémantique HTML5 (utiliser <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;footer&gt;</code>) pour structurer proprement un document. J'ai également appris à maîtriser Flexbox pour concevoir des grilles de cartes d'équipements ou d'entraînements fluides et adaptatives. Enfin, l'usage régulier des commandes Git m'a sensibilisé aux bonnes pratiques du versionnage de code.</p>
         </div>
         
         <div class="diff-table-wrap">
@@ -146,21 +208,25 @@
                     <tr>
                         <td>
                             <span class="row-num">#01</span>
-                            <em style="color:var(--text-dim)">[À compléter — décris une difficulté rencontrée]</em>
+                            <strong>Sensibilité à la casse lors du déploiement (Linux/Serveur)</strong>
+                            <p>En local sous Windows, les liens vers les pages fonctionnaient correctement. Cependant, suite au premier déploiement sur les serveurs de GitHub Pages, le lien de navigation vers la page "À propos" renvoyait une erreur 404.</p>
                         </td>
                         <td>
                             <span class="row-num">#01</span>
-                            <em style="color:var(--text-dim)">[À compléter — décris la solution apportée]</em>
+                            <strong>Uniformisation des chemins de fichiers</strong>
+                            <p>J'ai identifié que mon fichier source était nommé avec une majuscule (<code>Apropos.html</code>) tandis que certains appels ou feuilles de style étaient écrits différemment. Les serveurs d'hébergement Linux étant sensibles à la casse, j'ai corrigé tous mes liens de navigation sémantiques dans mes balises <code>&lt;nav&gt;</code> pour pointer strictement vers le nom exact du fichier.</p>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <span class="row-num">#02</span>
-                            <em style="color:var(--text-dim)">[À compléter — décris une autre difficulté]</em>
+                            <strong>Création d'interactivité graphique sans JavaScript</strong>
+                            <p>L'obligation d'apporter de l'interactivité (notamment pour présenter mes 3 programmes de musculation Push, Pull et Legs) sans utiliser de scripts JavaScript représentait une contrainte importante au Semestre 1.</p>
                         </td>
                         <td>
                             <span class="row-num">#02</span>
-                            <em style="color:var(--text-dim)">[À compléter — décris la solution correspondante]</em>
+                            <strong>Détournement des éléments de formulaire "Radio"</strong>
+                            <p>J'ai utilisé l'astuce des boutons radio CSS masqués (<code>display: none</code>). En reliant des boutons fléchés (<code>&lt;label&gt;</code>) aux ID des boutons radio grâce à l'attribut <code>for</code>, le clic change l'état coché du bouton. Le sélecteur CSS de frère général (<code>~</code>) m'a permis de modifier dynamiquement la position (<code>transform: translateX</code>) du bloc de cartes de manière fluide.</p>
                         </td>
                     </tr>
                 </tbody>
